@@ -2,6 +2,8 @@ package szesciu.wspanialych.version1;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -11,11 +13,13 @@ import java.util.List;
 @Document("PatientCard")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PatientCard {
     @Id
-    private Integer id;
+    private ObjectId id;
     @DocumentReference
-    private Integer user_id;
+    private ObjectId user_id;
+    private User user;
     private List<String> usedMedications;
     private List<String> diseases;
     private List<String> allergies;

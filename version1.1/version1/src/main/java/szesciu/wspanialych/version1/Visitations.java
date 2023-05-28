@@ -1,7 +1,7 @@
 package szesciu.wspanialych.version1;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.aggregation.DateOperators;
@@ -15,10 +15,14 @@ import java.util.List;
 @Document("Visitations")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Visitations {
     @Id
-    private Integer id;
+    private ObjectId id;
     private LocalDate appointmentDate;
+    private User user;
     private DateOperators.Hour time_of_visit;
     private String description_of_the_visit;
     private boolean visitStatus;
@@ -29,7 +33,7 @@ public class Visitations {
     private String diagnosis;
     private String drug_dosage;
     @DocumentReference
-    private User userId;
+    private ObjectId userId;
     @DocumentReference
     private User userType;
     private LocalDateTime date;
