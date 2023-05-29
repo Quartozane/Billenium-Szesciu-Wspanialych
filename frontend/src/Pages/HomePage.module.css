@@ -1,0 +1,181 @@
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  position: relative;
+}
+
+/* .slider-desc {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: -4px;
+  width: fit-content;
+  left: auto;
+  bottom: 0;
+  align-self: flex-end;
+  text-align: left;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+} */
+
+.desc {
+  font-weight: 600;
+  font-size: 3rem;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #4c8563;
+  margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .desc {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .desc {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .desc {
+    font-size: 1rem;
+  }
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  position: relative;
+}
+
+.slider-desc {
+  /* usuwamy 'position: absolute' i dodajemy 'align-self: flex-start' /
+z-index: 2;
+color: white;
+font-size: 4rem;
+font-weight: bold;
+letter-spacing: -4px;
+width: fit-content;
+left: auto;
+bottom: 0;
+align-self: flex-start;
+/ nowe style */
+  text-align: left;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.slider-desc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  height: 85%;
+  width: 100%;
+  /* padding: 0 2rem 2rem 2rem; */
+  margin-bottom: 100px;
+  top: 0;
+  bottom: 0;
+  justify-content: flex-end;
+  margin-left: 1.5vw;
+}
+
+.slider-desc.main {
+  z-index: 2;
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: -4px;
+  width: fit-content;
+  bottom: 0;
+  align-self: flex-start;
+  margin: 0;
+  text-align: left;
+  white-space: pre-line;
+  word-wrap: break-word;
+  position: relative;
+  margin: 0;
+  margin-bottom: 0.5vw;
+  text-shadow: 2px 2px 3px #000000;
+}
+
+.slider-desc.sub {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: -4px;
+  width: fit-content;
+  bottom: 0;
+  align-self: flex-start;
+  margin: 0;
+  text-align: left;
+  margin-top: 2rem;
+  white-space: pre-line;
+  word-wrap: break-word;
+  margin: 0;
+  margin-bottom: 1vw;
+  text-shadow: 2px 2px 3px #000000;
+}
+
+.slider-link-button {
+  z-index: 2;
+  padding: 1vw 3vw;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 0.2vw solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+  /* backdrop-filter: blur(2px); */
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  color: rgba(255, 255, 255);
+}
+
+.slider-link-button:hover {
+  background-color: #4c8563;
+  color: black;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 768px) {
+  .slider-desc.main {
+    font-size: 2rem;
+  }
+  .slider-desc.sub {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .slider-desc.main {
+    font-size: 2rem;
+  }
+  .slider-desc.sub {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .slider-desc.main {
+    font-size: 3rem;
+  }
+  .slider-desc.sub {
+    font-size: 3rem;
+  }
+}

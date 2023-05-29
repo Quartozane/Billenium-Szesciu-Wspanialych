@@ -1,0 +1,15 @@
+.where-are-you {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: fit-content;
+  margin-top: 0.8vw;
+  margin-bottom: 0.8vw;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.where-are-you a {
+  text-decoration: none;
+  color: black;
+}

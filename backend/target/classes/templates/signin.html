@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nauka-test</title>
+</head>
+<body>
+<h1>Sign Up!</h1>
+</br>
+<hr>
+<form th:action="@{/signin}" method="post">
+  <p>Mail: <input type="text" name="mail" /></p>
+  <p>Password: <input type="password" name="password" /></p>
+  <p><input type="submit" value="Sign In" /></p>
+</form>
+</body>
+</html>

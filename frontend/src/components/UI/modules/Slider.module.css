@@ -1,0 +1,55 @@
+.slider-image {
+  width: 85vw;
+  height: 65vh;
+  opacity: 1;
+  cursor: default;
+  transition: transform 0.3s linear, opacity 0.3s linear;
+}
+
+.slider-image.change {
+  width: 90vw;
+  height: 80vh;
+  opacity: 0.9;
+  cursor: default;
+  transform: scale(0.95);
+  background-color: white;
+  transition: transform 0.3s linear, opacity 0.3s linear;
+  /*animation-name: example;*/
+  /*animation-duration: 0.6s;*/
+}
+
+.slider-button {
+  width: auto;
+  height: auto;
+  margin: 20px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.slider-button:hover {
+  transform: scale(1.25);
+  transition: all 0.3s ease-in-out;
+}
+
+.slider-buttons {
+  display: flex;
+}
+
+/*
+@keyframes example {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+*/
+
+/* tbr */
