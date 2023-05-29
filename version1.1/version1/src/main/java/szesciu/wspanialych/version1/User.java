@@ -26,6 +26,7 @@ public class User {
     private String userType;
     private Doctor_card doctorCard;
     private List<Visitations> visitations;
+    private PatientCard patientCard;
 
     private String mail;
     private String password;

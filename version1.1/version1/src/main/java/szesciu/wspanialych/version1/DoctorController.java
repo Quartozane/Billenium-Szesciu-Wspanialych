@@ -7,8 +7,7 @@ import org.springframework.data.mongodb.core.MongoActionOperation;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -98,7 +97,7 @@ public class DoctorController {
         return ResponseEntity.ok(upcomingVisitations);
     }
     @GetMapping(path = "/ListPatient")
-    private ResponseEntity<List<User>> getPatientCard(HttpServletRequest request) {
+    private ResponseEntity<List<User>> getPatientList(HttpServletRequest request) {
         User loggedInUser = (User) request.getAttribute("loggedInUser");
         List<User> user = userRepository.findAll();
         List<User> usr = new ArrayList<>();
@@ -109,5 +108,81 @@ public class DoctorController {
                 }
             }
         return ResponseEntity.ok(user);
+    }
+    @GetMapping(path = "/userData/{user_id}")
+    public ResponseEntity<User> getPatientData(@PathVariable("user_id") ObjectId user_id) {
+        List<PatientCard> patientCards = patientCardRepository.findAll();
+
+        for (PatientCard card : patientCards) {
+            if (card.getUser_id().equals(user_id)) {
+                User user = new User();
+                user.setName(card.getUser().getName());
+                user.setSurname(card.getUser().getSurname());
+                card.setAllergies(card.getAllergies());
+                card.setOSOZ_card(card.getOSOZ_card());
+                card.setDiseases(card.getDiseases());
+                card.setActive_package(card.getActive_package());
+                card.setNFZ_department(card.getNFZ_department());
+                card.setUsedMedications(card.getUsedMedications());
+
+                user.setPatientCard(card);
+
+                return ResponseEntity.ok(user);
+            }
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+    @PostMapping(path = "/userData/{user_id}")
+    public ResponseEntity<User> updatePatientData(@PathVariable("user_id") ObjectId user_id, @RequestBody User updatedUser) {
+        List<PatientCard> patientCards = patientCardRepository.findAll();
+
+        for (PatientCard card : patientCards) {
+            if (card.getUser_id().equals(user_id)) {
+                User user = card.getUser();
+                user.setName(updatedUser.getName());
+                user.setSurname(updatedUser.getSurname());
+                card.setAllergies(updatedUser.getPatientCard().getAllergies());
+                card.setOSOZ_card(updatedUser.getPatientCard().getOSOZ_card());
+                card.setDiseases(updatedUser.getPatientCard().getDiseases());
+                card.setActive_package(updatedUser.getPatientCard().getActive_package());
+                card.setNFZ_department(updatedUser.getPatientCard().getNFZ_department());
+                card.setUsedMedications(updatedUser.getPatientCard().getUsedMedications());
+
+                patientCardRepository.save(card);
+
+                return ResponseEntity.ok(user);
+            }
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+    @GetMapping("/appointments/{user_id}")
+    public ResponseEntity<List<Visitations>> getPatientAppointments(@PathVariable("user_id") ObjectId user_id) {
+        List<Visitations> appointments = visitationsRepository.findAllByPatientId(user_id);
+
+        if (appointments.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(appointments);
+        }
+    }
+    @PostMapping("/addEntry")
+    public ResponseEntity<String> addEntry(@RequestParam("user_id") ObjectId user_id, @RequestParam("entryContent") String entryContent) {
+        // Pobranie karty pacjenta na podstawie ID użytkownika
+        PatientCard patientCard = patientCardRepository.findByUser_Id(user_id);
+
+        if (patientCard != null) {
+            Entry entry = new Entry();
+            entry.setEntryContent(entryContent);
+
+            patientCard.getEntries().add(entry);
+
+            patientCardRepository.save(patientCard);
+
+            return ResponseEntity.ok("Wpis został dodany.");
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
