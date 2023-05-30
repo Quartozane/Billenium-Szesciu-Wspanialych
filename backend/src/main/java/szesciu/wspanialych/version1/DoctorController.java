@@ -167,22 +167,5 @@ public class DoctorController {
             return ResponseEntity.ok(appointments);
         }
     }
-    @PostMapping("/addEntry")
-    public ResponseEntity<String> addEntry(@RequestParam("user_id") ObjectId user_id, @RequestParam("entryContent") String entryContent) {
-        // Pobranie karty pacjenta na podstawie ID użytkownika
-        PatientCard patientCard = patientCardRepository.findByUser_Id(user_id);
 
-        if (patientCard != null) {
-            Entry entry = new Entry();
-            entry.setEntryContent(entryContent);
-
-            patientCard.getEntries().add(entry);
-
-            patientCardRepository.save(patientCard);
-
-            return ResponseEntity.ok("Wpis został dodany.");
-        }
-
-        return ResponseEntity.notFound().build();
-    }
 }
