@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./LoginPage.css";
 import api from '../api/axiosConfig';
 import { useNavigate } from "react-router-dom";
+import { setUser } from "../currentUserStorage";
 
 
 const LoginPage = () => {
@@ -28,8 +29,8 @@ const LoginPage = () => {
       });
   
       if (response.status === 200) {
-        console.log(response);
         const user = response['data']
+        setUser(user);
         switch(user['userType']) {
           case "Lekarz":
             navigate('/MainDoctorPage');
