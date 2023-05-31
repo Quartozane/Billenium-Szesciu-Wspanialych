@@ -31,6 +31,7 @@ public class DoctorController {
         List<Visitations> allVisitations = visitationsRepository.findAll();
         List<Visitations> upcomingVisitations = new ArrayList<>();
         List<PatientCard> patientId = new ArrayList<>();
+
         User loggedInUser = (User) request.getAttribute("loggedInUser");
         if (loggedInUser != null && loggedInUser.getUserType().equals("Lekarz")) {
             User doctor = userRepository.findByMailAndPassword(loggedInUser.getMail(), loggedInUser.getPassword());
