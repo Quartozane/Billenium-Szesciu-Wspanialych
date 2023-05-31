@@ -1,13 +1,14 @@
 import React from "react";
 import { Form, Button, Container, FormGroup, Card, Row, Col } from "react-bootstrap";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import "./LoginPage.css";
 import api from '../api/axiosConfig';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [mail, setMail] = useState('');
   // Niebezpieczne, można podejrzeć wpisane hasło w F12 <input value...
   const [password, setPassword] = useState('');
@@ -28,7 +29,15 @@ const LoginPage = () => {
   
       if (response.status === 200) {
         console.log(response);
-        Navigate('/');
+        const userType = response['data']['userType']
+        switch(userType) {
+          case "Lekarz":
+            navigate('/MainDoctorPage');
+            break;
+          default:
+            console.log('userType invalid');
+        }
+        
       } else {
         console.log('Błąd logowania, response status:', response.status);
       }
