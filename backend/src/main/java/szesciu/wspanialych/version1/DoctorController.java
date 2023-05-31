@@ -27,26 +27,29 @@ public class DoctorController {
     VisitationsRepository visitationsRepository;
 
     @GetMapping(path = "/MainDoctorPage")
-    private ResponseEntity<List<Visitations>> UpcomingVisit() {
+    private ResponseEntity<List<Visitations>> UpcomingVisit(HttpServletRequest request) {
         List<Visitations> allVisitations = visitationsRepository.findAll();
         List<Visitations> upcomingVisitations = new ArrayList<>();
         List<PatientCard> patientId = new ArrayList<>();
-
-        for (int i = 0; i < 5 && i < allVisitations.size(); i++) {
-            upcomingVisitations.add(allVisitations.get(i));
-        }
-        upcomingVisitations.sort(Comparator.comparing(Visitations::getDate));
-
-        for (Visitations visitations : upcomingVisitations) {
-            User user = userRepository.findByid(visitations.getId());
-            if (user != null) {
-                User userData = new User();
-                userData.setId(user.getId());
-                userData.setName(user.getName());
-                userData.setSurname(user.getSurname());
-                visitations.setUser(userData);
+        User loggedInUser = (User) request.getAttribute("loggedInUser");
+        if (loggedInUser != null && loggedInUser.getUserType().equals("Lekarz")) {
+            User doctor = userRepository.findByMailAndPassword(loggedInUser.getMail(), loggedInUser.getPassword());
+            for (int i = 0; i < 5 && i < allVisitations.size(); i++) {
+                upcomingVisitations.add(allVisitations.get(i));
             }
+            upcomingVisitations.sort(Comparator.comparing(Visitations::getDate));
 
+            for (Visitations visitations : upcomingVisitations) {
+                User user = userRepository.findByid(visitations.getId());
+                if (user != null) {
+                    User userData = new User();
+                    userData.setId(user.getId());
+                    userData.setName(user.getName());
+                    userData.setSurname(user.getSurname());
+                    visitations.setUser(userData);
+                }
+
+            }
         }
         return ResponseEntity.ok(upcomingVisitations);
     }
