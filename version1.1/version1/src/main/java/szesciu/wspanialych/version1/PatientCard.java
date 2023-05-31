@@ -27,4 +27,9 @@ public class PatientCard {
     private String OSOZ_card;
     private String NFZ_department;
     private String active_package;
+    private String entry;
+    PatientCard(ObjectId id)
+    {
+        this.id = id;
+    }
 }

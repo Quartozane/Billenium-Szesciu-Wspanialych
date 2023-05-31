@@ -25,7 +25,7 @@ public class Visitations {
     private User user;
     private DateOperators.Hour time_of_visit;
     private String description_of_the_visit;
-    private boolean visitStatus;
+    private String visitStatus;
     private String target_visit;
     private String symptoms;
     private List<String> referral_for_examination;

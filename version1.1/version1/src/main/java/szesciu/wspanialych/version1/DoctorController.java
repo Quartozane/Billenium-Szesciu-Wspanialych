@@ -3,18 +3,26 @@ package szesciu.wspanialych.version1;
 import jakarta.servlet.http.HttpServletRequest;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoActionOperation;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DoctorController {
+    private final MongoTemplate mongoTemplate;
+
+    public DoctorController(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
 
     @Autowired
@@ -157,4 +165,60 @@ public class DoctorController {
 
         return ResponseEntity.notFound().build();
     }
+    @GetMapping("/appointments/{user_id}")
+    public ResponseEntity<List<Visitations>> getPatientAppointments(@PathVariable("user_id") ObjectId user_id) {
+        List<Visitations> appointments = visitationsRepository.findAllByPatientId(user_id);
+
+        if (appointments.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(appointments);
+        }
+    }
+
+
+    @PostMapping("/addEntry")
+    public ResponseEntity<String> addEntry(@RequestParam("user_id") ObjectId user_id, @RequestParam("entryContent") String entryContent) {
+        ObjectId patientCardId = patientCardRepository.findByUser_Id(user_id);
+
+        if (patientCardId != null) {
+            PatientCard patientCard = new PatientCard(patientCardId);
+            patientCard.setEntry(entryContent);
+
+            patientCardRepository.save(patientCard);
+
+            return ResponseEntity.ok("Wpis został dodany.");
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+    @GetMapping("/VisitationsDetails/{user_id}")
+    public ResponseEntity<User> visitationsDetails(HttpServletRequest request, @PathVariable("user_id") ObjectId user_id) {
+        User loggedInUser = (User) request.getAttribute("loggedInUser");
+        if (loggedInUser != null && loggedInUser.getUserType().equals("Lekarz")) {
+
+            Optional<User> patientOptional = userRepository.findById(user_id);
+            if (patientOptional.isPresent()) {
+                User patient = patientOptional.get();
+                Visitations visitations = new Visitations();
+                visitations.setDate(visitations.getDate());
+                patient.setPesel(patient.getPesel());
+                loggedInUser.setName(loggedInUser.getName());
+                loggedInUser.setSurname(loggedInUser.getSurname());
+                visitations.setVisitStatus(visitations.getVisitStatus());
+                visitations.setTarget_visit(visitations.getTarget_visit());
+                visitations.setSymptoms(visitations.getSymptoms());
+                visitations.setDiagnosis(visitations.getDiagnosis());
+                visitations.setDrug_dosage(visitations.getDrug_dosage());
+                
+                visitations.setUser(patient);
+                return ResponseEntity.ok(patient);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
 }
