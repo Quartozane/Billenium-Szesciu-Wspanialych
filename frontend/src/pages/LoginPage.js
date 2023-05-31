@@ -29,8 +29,8 @@ const LoginPage = () => {
   
       if (response.status === 200) {
         console.log(response);
-        const userType = response['data']['userType']
-        switch(userType) {
+        const user = response['data']
+        switch(user['userType']) {
           case "Lekarz":
             navigate('/MainDoctorPage');
             break;
