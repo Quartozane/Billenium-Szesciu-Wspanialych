@@ -15,7 +15,7 @@ const MainDoctorPage = () => {
     async function getUpcomingVisitations () {
         try {
             const response = await api({
-                url: '/MainDoctorPage',
+                url: '/visADocAPat',
                 method: 'get',
                 params: {
                     mail: currentUser['mail'],
@@ -34,11 +34,11 @@ const MainDoctorPage = () => {
         }
     };
 
-    // console.log(getUpcomingVisitations());
+    console.log(getUpcomingVisitations());
 
     return (
         <Container>
-            a
+            {getUpcomingVisitations().map}
         </Container>
     );
 };
