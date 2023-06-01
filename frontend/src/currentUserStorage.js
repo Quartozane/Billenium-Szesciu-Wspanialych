@@ -13,8 +13,7 @@ function getUser() {
     if(sessionStorage.getItem('user') !== null) {
         return JSON.parse(sessionStorage.getItem('user'));
     } else
-        // throw new Error('User is null!');
-        console.log('User is null!');
+        return null;
 }
 
 function clearUser() {

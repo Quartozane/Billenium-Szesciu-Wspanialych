@@ -29,7 +29,8 @@ const LoginPage = () => {
       });
   
       if (response.status === 200) {
-        const user = response['data']
+        console.log(response);
+        const user = response['data'];
         setUser(user);
         switch(user['userType']) {
           case "Lekarz":

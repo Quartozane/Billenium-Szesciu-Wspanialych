@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class DoctorController {
@@ -28,13 +29,19 @@ public class DoctorController {
 
     @GetMapping(path = "/MainDoctorPage")
     private ResponseEntity<List<Visitations>> UpcomingVisit(HttpServletRequest request) {
-        List<Visitations> allVisitations = visitationsRepository.findAll();
+
         List<Visitations> upcomingVisitations = new ArrayList<>();
         List<PatientCard> patientId = new ArrayList<>();
 
-        User loggedInUser = (User) request.getAttribute("loggedInUser");
-        if (loggedInUser != null && loggedInUser.getUserType().equals("Lekarz")) {
-            User doctor = userRepository.findByMailAndPassword(loggedInUser.getMail(), loggedInUser.getPassword());
+        String[] mail = request.getParameterValues("mail");
+        String[] password = request.getParameterValues("password");
+        String[] userType = request.getParameterValues("userType");
+        System.out.print(mail[0]+' '+password[0]+' '+userType[0]);
+
+        List<Visitations> allVisitations = visitationsRepository.findAll(); // tu
+
+        if (mail[0] != null && Objects.equals(userType[0], "Lekarz")) {
+            User doctor = userRepository.findByMailAndPassword(mail[0], password[0]);
             for (int i = 0; i < 5 && i < allVisitations.size(); i++) {
                 upcomingVisitations.add(allVisitations.get(i));
             }
@@ -109,8 +116,8 @@ public class DoctorController {
             User doctor = userRepository.findByMailAndPassword(loggedInUser.getMail(), loggedInUser.getPassword());
             if (doctor != null) {
                 return ResponseEntity.ok(user);
-                }
             }
+        }
         return ResponseEntity.ok(user);
     }
     @GetMapping(path = "/userData/{user_id}")

@@ -28,10 +28,11 @@ public class SignInController {
     public ResponseEntity<User> submitSignin(HttpServletRequest request, @RequestParam @Email String mail, @RequestParam @Size(min = 8) String password) {
         User user = userRepository.findByMailAndPassword(mail, password);
         if (user != null) {
-            user.setPassword("********");
+//            user.setPassword("********");
             String userType = user.getUserType();
             if (userType.equals("Lekarz") || userType.equals("Pacjent") || userType.equals("Recepcjonista")) {
                 request.setAttribute("loggedInUser", user);
+
                 return ResponseEntity.ok(user);
             }
         }

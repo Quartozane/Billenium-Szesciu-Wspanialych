@@ -17,17 +17,15 @@ const MainDoctorPage = () => {
             const response = await api({
                 url: '/MainDoctorPage',
                 method: 'get',
-                // loggedInUser: currentUser,
-                // data: {
-                //     loggedInUser: currentUser,
-                // },
                 params: {
-                    loggedInUser: {currentUser},
+                    mail: currentUser['mail'],
+                    password: currentUser['password'],
+                    userType: currentUser['userType'],
                 }
             });
 
             if (response.status === 200) {
-                return response['data']
+                return response['data'];
             } else {
                 console.log('Błąd, response status:', response.status);
             }
@@ -40,7 +38,7 @@ const MainDoctorPage = () => {
 
     return (
         <Container>
-            {getUpcomingVisitations()['data']}
+            a
         </Container>
     );
 };
