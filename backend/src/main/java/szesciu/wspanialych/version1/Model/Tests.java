@@ -1,4 +1,4 @@
-package szesciu.wspanialych.version1;
+package szesciu.wspanialych.version1.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Document("Tests")

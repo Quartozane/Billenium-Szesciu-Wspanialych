@@ -1,10 +1,11 @@
-package szesciu.wspanialych.version1;
+package szesciu.wspanialych.version1.Controller;
 
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
+import szesciu.wspanialych.version1.Repository.UserRepository;
 
-@Controller
+@RestController
 public class UserController {
     @Autowired
     private UserRepository userRepository;
