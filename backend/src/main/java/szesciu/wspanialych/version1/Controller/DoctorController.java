@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import szesciu.wspanialych.version1.Model.PatientCard;
+import szesciu.wspanialych.version1.Model.User;
 import szesciu.wspanialych.version1.Model.Visitations;
 import szesciu.wspanialych.version1.Repository.DoctorCardRepository;
 import szesciu.wspanialych.version1.Repository.PatientCardRepository;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/doctors")
 public class DoctorController {
     private final MongoTemplate mongoTemplate;
 
@@ -29,7 +32,6 @@ public class DoctorController {
         this.visitationsRepository = visitationsRepository;
     }
 
-
     @Autowired
     private final DoctorCardRepository doctorCardRepository;
     @Autowired
@@ -39,7 +41,26 @@ public class DoctorController {
     @Autowired
     private final VisitationsRepository visitationsRepository;
 
-
+//    @GetMapping(path = "/MainDoctorPage")
+//    private ResponseEntity<List<Visitations>> UpcomingVisit() {
+//        List<Visitations> allVisitations = visitationsRepository.findAll();
+//        List<Visitations> upcomingVisitations = new ArrayList<>();
+//        List<PatientCard> patientId = new ArrayList<>();
+//
+//        for (int i = 0; i < 5 && i < allVisitations.size(); i++) {
+//            upcomingVisitations.add(allVisitations.get(i));
+//        }
+//        upcomingVisitations.sort(Comparator.comparing(Visitations::getAppointmentBookingDate));
+//
+//        for (Visitations visitations : upcomingVisitations) {
+//            Optional<Visitations> visitations1 = visitationsRepository.findById(visitations.getId());
+//            if (visitations1 != null) {
+//
+//            }
+//
+//        }
+//        return ResponseEntity.ok(upcomingVisitations);
+//    }
 //
 //    @GetMapping(path = "/DoctorCard")
 //    private ResponseEntity<Doctor_card> getDoctorCard(HttpServletRequest request) {

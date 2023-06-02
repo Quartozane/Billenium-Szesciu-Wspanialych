@@ -1,14 +1,14 @@
 package szesciu.wspanialych.version1.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 
 public class VisitationsAndDoctorAndPatient {
     private Visitations visitation;
