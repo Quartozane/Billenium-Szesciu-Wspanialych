@@ -71,21 +71,17 @@ public class DoctorCardAndDoctorController {
         return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
     }
     @GetMapping("/doctorcard")
-    public ResponseEntity<DoctorCardAndDoctor> getDoctorCard(ObjectId id ) {
+    public ResponseEntity<List<DoctorCard> >getDoctorCard() {
         DoctorCardAndDoctor doctor = new DoctorCardAndDoctor();
         List<DoctorCard> all = doctorCardRepository.findAll();
+        List<DoctorCard> alls = new ArrayList();
         for(DoctorCard doctorCard1 : all)
         {
-            if(doctorCard1.getDoctorId() == id)
-            {
-                doctor.setDoctorCard(doctorCard1);
-
-            }
-
+            alls.add(doctorCard1);
         }
-        return ResponseEntity.ok(doctor);
+        return ResponseEntity.ok(alls);
     }
-    @GetMapping("/doctorCardAndDoctor/patientlist")
+    @GetMapping("/patientlist")
     public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getPatientList() {
         List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
         List<User> patients = userRepository.findAllByUserType("Pacjent");

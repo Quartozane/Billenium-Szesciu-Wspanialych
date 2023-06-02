@@ -1,31 +1,13 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import api from '../api/axiosConfig';
+import { sendRequest } from "../sendRequest";
 
 
 const VisitCalendarPage = () => {
     
-    const getVisitCalendar = async (e) => {
+    const getVisitCalendar = sendRequest('get', '/doctorCardAndDoctor/calendars')
       
-        try {
-      
-          const response = await api({
-            url: '/doctorCardAndDoctor/calendars',
-            method: 'get',
-          });
-      
-          if (response.status === 200) {
-            console.log(response);
-
-          } else {
-            console.log('Błąd żądania, response status:', response.status);
-          }
-        } catch (error) {
-          console.log('Błąd żądania:', error);
-        }
-      };
-
-      console.log(getVisitCalendar());
+    console.log(getVisitCalendar);
 
     return (
         <Container>

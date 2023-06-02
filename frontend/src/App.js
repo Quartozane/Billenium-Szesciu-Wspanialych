@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import Calendar from './components/Calendar';
 import DoctorPage from './pages/DoctorPage';
 import VisitCalendarPage from './pages/VisitCalendarPage';
+import DoctorCardPage from './pages/DoctorCardPage';
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
       { index: true, element: <LoginPage /> },
       { path:'/calendar', element: <Calendar appointedDates="['2023-05-10', '2023-05-04']" /> },
       { path:'/DoctorPage', element: <DoctorPage /> },
-      { path:'/VisitCalendar', element: <VisitCalendarPage /> }
+      { path:'/VisitCalendar', element: <VisitCalendarPage /> },
+      { path:'/DoctorCard', element: <DoctorCardPage /> },
     ],
   },
 ]);
