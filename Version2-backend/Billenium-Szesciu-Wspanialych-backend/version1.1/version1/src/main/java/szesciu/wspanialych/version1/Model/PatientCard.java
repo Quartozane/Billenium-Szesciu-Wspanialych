@@ -27,6 +27,7 @@ public class PatientCard {
     private String OSOZCard;
     private String NFZDepartment;
     private String activePackage;
+    private List<String> entry;
 
     public PatientCard(ObjectId patientId, List<String> medications, String conditions, String allergies, String EWUSStatus, String OSOZCard, String NFZDepartment, String activePackage) {
         this.patientId = patientId;

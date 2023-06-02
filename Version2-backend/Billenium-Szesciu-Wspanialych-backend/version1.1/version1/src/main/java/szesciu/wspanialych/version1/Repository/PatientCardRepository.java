@@ -11,4 +11,5 @@ public interface PatientCardRepository extends MongoRepository<PatientCard, Obje
 //    boolean existsById(ObjectId id);
 //    ObjectId findByUser_Id(ObjectId id);
 //    List<PatientCard> findAll();
+    PatientCard findByPatientId(ObjectId patientId);
 }

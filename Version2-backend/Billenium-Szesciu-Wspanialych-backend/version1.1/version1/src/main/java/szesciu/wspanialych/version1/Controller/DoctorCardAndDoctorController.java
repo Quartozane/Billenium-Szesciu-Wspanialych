@@ -1,18 +1,19 @@
 package szesciu.wspanialych.version1.Controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import szesciu.wspanialych.version1.Model.DoctorCard;
-import szesciu.wspanialych.version1.Model.DoctorCardAndDoctor;
-import szesciu.wspanialych.version1.Model.User;
+import org.springframework.web.bind.annotation.*;
+import szesciu.wspanialych.version1.Model.*;
 import szesciu.wspanialych.version1.Repository.DoctorCardRepository;
+import szesciu.wspanialych.version1.Repository.PatientCardRepository;
 import szesciu.wspanialych.version1.Repository.UserRepository;
+import szesciu.wspanialych.version1.Repository.VisitationsRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/doctorCardAndDoctor")
@@ -21,9 +22,15 @@ public class DoctorCardAndDoctorController {
     private final DoctorCardRepository doctorCardRepository;
     @Autowired
     private final UserRepository userRepository;
-    public DoctorCardAndDoctorController(DoctorCardRepository doctorCardRepository, UserRepository userRepository) {
+    @Autowired
+    private final VisitationsRepository visitationsRepository;
+    @Autowired
+    private final PatientCardRepository patientCardRepository;
+    public DoctorCardAndDoctorController(DoctorCardRepository doctorCardRepository, UserRepository userRepository, VisitationsRepository visitationsRepository,PatientCardRepository patientCardRepository) {
         this.doctorCardRepository = doctorCardRepository;
         this.userRepository = userRepository;
+        this.visitationsRepository = visitationsRepository;
+        this.patientCardRepository = patientCardRepository;
     }
 
     @GetMapping
@@ -43,4 +50,67 @@ public class DoctorCardAndDoctorController {
         }
         return ResponseEntity.ok(visitationsAndDoctorAndPatientsList);
     }
+    @GetMapping("/doctorCardAndDoctor/calendars")
+    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getCalendar() {
+        List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
+        List<Visitations> visitations = visitationsRepository.findAll();
+
+        for (Visitations visitation : visitations) {
+            User doctor = userRepository.findById(visitation.getDoctorId()).orElse(null);
+            User patient = userRepository.findById(visitation.getPatientId()).orElse(null);
+
+            if (doctor != null && patient != null) {
+                VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
+                visitationsAndDoctorAndPatient.setVisitation(visitation);
+                visitationsAndDoctorAndPatient.setDoctor(doctor);
+                visitationsAndDoctorAndPatient.setPatient(patient);
+
+                visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
+            }
+        }
+        return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
+    }
+    @GetMapping("/doctorCardAndDoctor/doctorcard")
+    public ResponseEntity<DoctorCardAndDoctor> getDoctorCard(ObjectId id ) {
+        DoctorCardAndDoctor doctor = new DoctorCardAndDoctor();
+        List<DoctorCard> all = doctorCardRepository.findAll();
+        for(DoctorCard doctorCard1 : all)
+        {
+            if(doctorCard1.getDoctorId() == id)
+            {
+                doctor.setDoctorCard(doctorCard1);
+
+            }
+
+        }
+        return ResponseEntity.ok(doctor);
+    }
+    @GetMapping("/doctorCardAndDoctor/patientlist")
+    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getPatientList() {
+        List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
+        List<User> patients = userRepository.findAllByUserType("Pacjent");
+
+        for (User patient : patients) {
+            VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
+            visitationsAndDoctorAndPatient.setPatient(patient);
+            visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
+        }
+
+        return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
+    }
+    @PostMapping("/addEntry")
+    public ResponseEntity<PatientCard> addEntryToPatientCard(@RequestParam String cardId, @RequestParam String entry) {
+        ObjectId cardObjectId = new ObjectId(cardId);
+        PatientCard patientCard = patientCardRepository.findByPatientId(cardObjectId);
+
+        if (patientCard != null) {
+            patientCard.getEntry().add(entry);
+            patientCardRepository.save(patientCard);
+            return ResponseEntity.ok(patientCard);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+
 }
