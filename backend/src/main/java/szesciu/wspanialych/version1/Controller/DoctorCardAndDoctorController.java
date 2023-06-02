@@ -50,7 +50,7 @@ public class DoctorCardAndDoctorController {
         }
         return ResponseEntity.ok(visitationsAndDoctorAndPatientsList);
     }
-    @GetMapping("/doctorCardAndDoctor/calendars")
+    @GetMapping("/calendars")
     public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getCalendar() {
         List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
         List<Visitations> visitations = visitationsRepository.findAll();
@@ -70,7 +70,7 @@ public class DoctorCardAndDoctorController {
         }
         return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
     }
-    @GetMapping("/doctorCardAndDoctor/doctorcard")
+    @GetMapping("/doctorcard")
     public ResponseEntity<DoctorCardAndDoctor> getDoctorCard(ObjectId id ) {
         DoctorCardAndDoctor doctor = new DoctorCardAndDoctor();
         List<DoctorCard> all = doctorCardRepository.findAll();

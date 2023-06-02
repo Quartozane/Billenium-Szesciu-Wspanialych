@@ -1,12 +1,12 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import api from '../api/axiosConfig';
-import './MainDoctorPage.css';
+import './DoctorPage.css';
 import { getUser } from "../currentUserStorage";
 
 
-const MainDoctorPage = () => {
+const DoctorPage = () => {
     
     let currentUser = getUser();
     // currentUser = JSON.stringify(currentUser);
@@ -38,9 +38,13 @@ const MainDoctorPage = () => {
 
     return (
         <Container>
-            {getUpcomingVisitations().map}
+            <Navigate to='/VisitCalendar'>
+                <Button>
+                    Pokaż kalendarz wizyt
+                </Button>
+            </Navigate>
         </Container>
     );
 };
 
-export default MainDoctorPage;
+export default DoctorPage;

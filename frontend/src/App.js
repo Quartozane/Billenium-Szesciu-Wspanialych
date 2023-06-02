@@ -4,7 +4,8 @@ import Layout from './pages/Layout';
 import { createBrowserRouter, BrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import Calendar from './components/Calendar';
-import MainDoctorPage from './pages/MainDoctorPage';
+import DoctorPage from './pages/DoctorPage';
+import VisitCalendarPage from './pages/VisitCalendarPage';
 
 
 const router = createBrowserRouter([
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <LoginPage /> },
       { path:'/calendar', element: <Calendar appointedDates="['2023-05-10', '2023-05-04']" /> },
-      { path:'/MainDoctorPage', element: <MainDoctorPage /> },
+      { path:'/DoctorPage', element: <DoctorPage /> },
+      { path:'/VisitCalendar', element: <VisitCalendarPage /> }
     ],
   },
 ]);
