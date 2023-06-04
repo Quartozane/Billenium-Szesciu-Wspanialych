@@ -1,29 +1,35 @@
-import React from "react";
-import Home from "./Pages/HomePage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./Pages/Layout";
-import TestPage from "./Pages/TestPage";
+import api from './api/axiosConfig';
+import { useState, useEffect } from 'react';
+import Layout from './pages/Layout';
+import { createBrowserRouter, BrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import Calendar from './components/Calendar';
+import DoctorPage from './pages/DoctorPage';
+import VisitCalendarPage from './pages/VisitCalendarPage';
+import DoctorCardPage from './pages/DoctorCardPage';
 
-// https://react-slideshow-image.netlify.app/?path=/story/examples-fade--default&args=canSwipe:true&globals=backgrounds.grid:true;backgrounds.value:!hex(333333)
-// https://react-slideshow-image.netlify.app/?path=/story/introduction--page
-// https://codesandbox.io/s/priceless-bohr-ggirf
-// https://www.npmjs.com/package/react-slideshow-image
-// https://codesandbox.io/s/admiring-wave-17e0j?file=/src/App.js
-// https://www.figma.com/file/xBWCDC3p7kVztCmW4iMB0H/ZETO---zarz%C4%85dzanie-gospodarstwem-rolnym?node-id=5-161&t=295u1YAXl77kfRxU-0
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path:"",
     element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "/test", element: <TestPage /> },
+      { index: true, element: <LoginPage /> },
+      { path:'/calendar', element: <Calendar appointedDates="['2023-05-10', '2023-05-04']" /> },
+      { path:'/DoctorPage', element: <DoctorPage /> },
+      { path:'/VisitCalendar', element: <VisitCalendarPage /> },
+      { path:'/DoctorCard', element: <DoctorCardPage /> },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+
+  
+
+  return (
+    <RouterProvider router={router} />
+  );
 }
 
 export default App;
