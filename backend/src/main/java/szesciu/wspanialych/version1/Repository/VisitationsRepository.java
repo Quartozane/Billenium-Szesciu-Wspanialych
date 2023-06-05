@@ -15,7 +15,7 @@ public interface VisitationsRepository extends MongoRepository<Visitations, Obje
 //    List<Visitations> findByVisitStatus(boolean visitStatus);
 //    List<Visitations> findAll();
 //    @Query(value = "{'patientId': ?0}")
-//    List<Visitations> findAllByPatientId(ObjectId patientId);
+    List<Visitations> findAllByPatientId(ObjectId patientId);
     List<Visitations> findByappointmentBookingDate(LocalDate appointmentBookingDate);
 }
 

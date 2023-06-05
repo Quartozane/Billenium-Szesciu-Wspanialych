@@ -1,4 +1,26 @@
-# Getting Started with Create React App
+# Jak używać frontend
+
+## Terminal
+
+`cd frontend/`
+
+## Jednorazowe pobranie potrzebnych modułów
+
+`npm install`
+
+Dużo plików w node_modules/
+
+Folder powinien być zawsze w .gitignore
+
+## Uruchomienie aplikacji do developmentu
+
+`npm start`
+
+[http://localhost:3000](http://localhost:3000)
+
+Zmiany w aplikacji wyświetlane są natychmiast po zapisaniu zmienianego pliku.
+
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -34,7 +34,7 @@ const LoginPage = () => {
         setUser(user);
         switch(user['userType']) {
           case "Lekarz":
-            navigate('/DoctorPage');
+            navigate('/DoctorCard');
             break;
           default:
             console.log('userType invalid');
@@ -47,18 +47,6 @@ const LoginPage = () => {
       console.log('Błąd logowania:', error);
     }
   };
-/*
-  const signin = (e) => {
-    e.preventDefault();
-    const sign = {
-      mail: mail,
-      password: password,
-    };
-
-    const response = 
-    if()
-  } ;
-*/
     return (
         <Container fluid className="w-25 pt-3">
           <Row>

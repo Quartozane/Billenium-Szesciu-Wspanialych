@@ -12,12 +12,12 @@ const DoctorPage = () => {
 
     const getUpcomingVisitations = sendRequest('get', '/visADocAPat');
 
-    console.log(getUpcomingVisitations);
+    console.log(getUpcomingVisitations); 
 
     return (
         <Container>
             <Link to='/VisitCalendar'>
-                <Button>
+                <Button vars>
                     Pokaż kalendarz wizyt
                 </Button>
             </Link>
