@@ -1,12 +1,18 @@
 import api from './api/axiosConfig';
+import { getUser } from './currentUserStorage';
 export { sendRequest };
 
 async function  sendRequest(method, url, params=null) {
+    const user = getUser();
     try {
         const response = await api({
             method: method,
             url: url,
-            params: params,
+            params: {
+                mail: user['mail'],
+                password: user['password'],
+                ...params,
+            },
         });
 
         if (response.status === 200) {
@@ -16,6 +22,6 @@ async function  sendRequest(method, url, params=null) {
             console.log('Błąd żądania, response status: ', response.status);
         }
     } catch(e) {
-        console.log('Żądanie nie powiodło się!');
+        console.log('Żądanie nie powiodło się!', e);
     }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import house from "../../../images/house.svg";
 import styles from "./WhereAreYou.module.css";
+import { Link } from "react-router-dom";
 
 const WhereAreYou = (props) => {
   let subpages = [];
@@ -15,7 +16,8 @@ const WhereAreYou = (props) => {
   return (
     <div className={styles["where-are-you"]}>
       <img src={house} alt="house" />
-      {subpages}
+      {/* {subpages} */}
+      <Link to='/'>Strona główna</Link>
     </div>
   );
 };
