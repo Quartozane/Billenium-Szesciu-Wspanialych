@@ -53,18 +53,18 @@ public class VisitationsAndDoctorAndPatientController {
         return ResponseEntity.ok(visitationsAndDoctorAndPatientsList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<VisitationsAndDoctorAndPatient> getVisitationsAndDoctorAndPatient(@PathVariable ObjectId id) {
-        Visitations visitations = visitationsRepository.findById(id).orElse(null);
-        VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
-
-        User doctor = userRepository.findById(visitations.getDoctorId()).orElse(null);
-        User patient = userRepository.findById(visitations.getPatientId()).orElse(null);
-
-        visitationsAndDoctorAndPatient.setDoctor(doctor);
-        visitationsAndDoctorAndPatient.setPatient(patient);
-        visitationsAndDoctorAndPatient.setVisitation(visitations);
-
-        return ResponseEntity.ok(visitationsAndDoctorAndPatient);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<VisitationsAndDoctorAndPatient> getVisitationsAndDoctorAndPatient(@PathVariable ObjectId id) {
+//        Visitations visitations = visitationsRepository.findById(id).orElse(null);
+//        VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
+//
+//        User doctor = userRepository.findById(visitations.getDoctorId()).orElse(null);
+//        User patient = userRepository.findById(visitations.getPatientId()).orElse(null);
+//
+//        visitationsAndDoctorAndPatient.setDoctor(doctor);
+//        visitationsAndDoctorAndPatient.setPatient(patient);
+//        visitationsAndDoctorAndPatient.setVisitation(visitations);
+//
+//        return ResponseEntity.ok(visitationsAndDoctorAndPatient);
+//    }
 }

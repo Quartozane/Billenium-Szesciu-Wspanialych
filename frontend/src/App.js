@@ -10,6 +10,9 @@ import DoctorCardPage from './pages/DoctorCardPage';
 import PatientListPage from './pages/PatientListPage';
 import PatientCardPage from './pages/PatientCardPage';
 import AddEntryPage from './pages/AddEntryPage';
+import VisitationPage from './pages/VisitationPage';
+import PatientPage from './pages/PatientPage';
+import DoctorListPage from './pages/DoctorListPage';
 
 
 const router = createBrowserRouter([
@@ -24,7 +27,10 @@ const router = createBrowserRouter([
       { path:'/PatientList', element: <PatientListPage /> },
       { path:'/PatientCard', element: <PatientCardPage />},
       { path:'/DoctorCard', element: <DoctorCardPage /> },
-      { path:'/AddEntry', element: <AddEntryPage /> },
+      { path:'/PatientCard/AddEntry', element: <AddEntryPage /> },
+      { path:'/PatientCard/Visitation', element: <VisitationPage /> },
+      { path:'/PatientPage', element: <PatientPage /> },
+      { path:'/PatientPage/DoctorList', element: <DoctorListPage /> }
     ],
   },
 ]);

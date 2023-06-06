@@ -143,5 +143,18 @@ public class DoctorCardAndDoctorController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/visitations/{id}")
+    public ResponseEntity<Visitations> getVisitationsAndDoctorAndPatient(@RequestParam("mail") String mail, @RequestParam("password") String password, @PathVariable ObjectId id) {
+        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
+        if (loggedInUser != null) {
+            Visitations visitations = visitationsRepository.findById(id).orElse(null);
+            if (visitations != null) {
+                return ResponseEntity.ok(visitations);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 
 }
+
