@@ -1,8 +1,10 @@
 package szesciu.wspanialych.version1.Controller;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import szesciu.wspanialych.version1.Model.User;
@@ -50,4 +52,19 @@ public class VisitationsAndDoctorAndPatientController {
 
         return ResponseEntity.ok(visitationsAndDoctorAndPatientsList);
     }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<VisitationsAndDoctorAndPatient> getVisitationsAndDoctorAndPatient(@PathVariable ObjectId id) {
+//        Visitations visitations = visitationsRepository.findById(id).orElse(null);
+//        VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
+//
+//        User doctor = userRepository.findById(visitations.getDoctorId()).orElse(null);
+//        User patient = userRepository.findById(visitations.getPatientId()).orElse(null);
+//
+//        visitationsAndDoctorAndPatient.setDoctor(doctor);
+//        visitationsAndDoctorAndPatient.setPatient(patient);
+//        visitationsAndDoctorAndPatient.setVisitation(visitations);
+//
+//        return ResponseEntity.ok(visitationsAndDoctorAndPatient);
+//    }
 }

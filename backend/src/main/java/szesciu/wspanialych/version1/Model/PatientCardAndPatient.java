@@ -1,5 +1,6 @@
 package szesciu.wspanialych.version1.Model;
 
+
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,9 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Getter
 @Setter
-
-public class VisitationsAndDoctorAndPatient {
-    private Visitations visitation;
-    private User doctor;
-    private User patient;
+public class PatientCardAndPatient {
+    private User userPatient;
+    private PatientCard patientCard;
 }
