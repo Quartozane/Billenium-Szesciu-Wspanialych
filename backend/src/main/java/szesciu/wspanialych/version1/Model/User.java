@@ -25,10 +25,10 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private LocalDate dateOfBirth;
     private String address;
-    private Long pesel;
+    private String pesel;
 
     public User(String name, String surname, String mail, String password) {
         this.name = name;

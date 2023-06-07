@@ -33,6 +33,21 @@ public class SignInController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PostMapping(path = "/getUserIdString")
+    @ResponseBody
+    public ResponseEntity<String> getUserIdString(@RequestParam @Email String mail, @RequestParam @Size(min = 8) String password) {
+        User user = userRepository.findByMailAndPassword(mail, password);
+        if (user != null) {
+//            user.setPassword("********");
+            String userType = user.getUserType();
+            if (userType.equals("Lekarz") || userType.equals("Pacjent") || userType.equals("Recepcjonista")) {
+                String id = user.getId().toString();
+                return ResponseEntity.ok(id);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
 
     /*@PostMapping(path="/signin")

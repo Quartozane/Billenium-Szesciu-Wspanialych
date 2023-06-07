@@ -2,7 +2,7 @@ import api from './api/axiosConfig';
 import { getUser } from './currentUserStorage';
 export { sendRequest };
 
-async function  sendRequest(method, url, params=null) {
+async function sendRequest(method, url, params=null, data=null) {
     const user = getUser();
     try {
         const response = await api({
@@ -12,6 +12,9 @@ async function  sendRequest(method, url, params=null) {
                 mail: user['mail'],
                 password: user['password'],
                 ...params,
+            },
+            data: {
+                ...data,
             },
         });
 

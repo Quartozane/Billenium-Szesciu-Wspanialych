@@ -68,21 +68,23 @@ public class PatientCardController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/patientcalendar/{patientId}")
-    public ResponseEntity<List<Visitations>> getPatientCalendar(@PathVariable ObjectId patientId, @RequestParam("mail") String mail, @RequestParam("password") String password) {
+    @GetMapping("/patientcalendar")
+    public ResponseEntity<List<Visitations>> getPatientCalendar(@RequestParam("mail") String mail, @RequestParam("password") String password) {
         User loggedInUser = userRepository.findByMailAndPassword(mail, password);
         if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
+            ObjectId patientId = loggedInUser.getId();
             List<Visitations> patientvisit = visitationsRepository.findAllByPatientId(patientId);
             return ResponseEntity.ok(patientvisit);
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/patientcard/{patientId}")
-    public ResponseEntity<PatientCard> getPatientCard(@PathVariable ObjectId patientId, @RequestParam("mail") String mail, @RequestParam("password") String password) {
+    @GetMapping("/patientcard")
+    public ResponseEntity<PatientCard> getPatientCard(@RequestParam("mail") String mail, @RequestParam("password") String password) {
 
         User loggedInUser = userRepository.findByMailAndPassword(mail, password);
         if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
+            ObjectId patientId = loggedInUser.getId();
             PatientCard patientCard = patientCardRepository.findByPatientId(patientId);
             if (patientCard != null) {
                 return ResponseEntity.ok(patientCard);
@@ -91,53 +93,37 @@ public class PatientCardController {
 
         return ResponseEntity.notFound().build();
     }
-    @PostMapping("/updatecard/{id}")
-    public ResponseEntity<PatientCardAndPatient> updatePatientCard(@PathVariable("id") String id,
-                                                                   @RequestBody PatientCardAndPatient updatedCard,
-                                                                   @RequestParam("mail") String mail,
-                                                                   @RequestParam("password") String password) {
-        ObjectId objectId = new ObjectId(id);
-        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
-        if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
-            Optional<PatientCard> optionalCard = patientCardRepository.findById(objectId);
 
-            if (optionalCard.isPresent()) {
-                PatientCard card = optionalCard.get();
-                User patient = updatedCard.getUserPatient();
-
-                if (patient != null) {
-                    if (patient.getAddress() != null) {
-                        patient.setAddress(patient.getAddress());
-                    }
-                    if (patient.getPhoneNumber() != null) {
-                        patient.setPhoneNumber(patient.getPhoneNumber());
-                    }
-                }
-
-                if (updatedCard.getPatientCard().getNFZDepartment() != null) {
-                    card.setNFZDepartment(updatedCard.getPatientCard().getNFZDepartment());
-                }
-
-                userRepository.save(patient);
-
-                PatientCard updatedPatientCard = patientCardRepository.save(card);
-                updatedCard.setPatientCard(updatedPatientCard);
-                return ResponseEntity.ok(updatedCard);
-            }
+    @PutMapping("/updatecard")
+    public ResponseEntity<PatientCardAndPatient> updatePatientCard(@RequestParam ObjectId patientId, @RequestBody PatientCardAndPatient patientCardAndPatient) {
+        PatientCard updatePatientCard = patientCardRepository.findByPatientId(patientId);
+        User updateUser = userRepository.findById(patientId).orElse(null);
+        if(patientId != null) {
+            updatePatientCard.setNFZDepartment(patientCardAndPatient.getPatientCard().getNFZDepartment());
+            updateUser.setAddress(patientCardAndPatient.getUserPatient().getAddress());
+            updateUser.setPhoneNumber(patientCardAndPatient.getUserPatient().getPhoneNumber());
+            patientCardRepository.save(updatePatientCard);
+            userRepository.save(updateUser);
+            PatientCardAndPatient updatePatientCardAndPatient = new PatientCardAndPatient();
+            updatePatientCardAndPatient.setPatientCard(updatePatientCard);
+            updatePatientCardAndPatient.setUserPatient(updateUser);
+            return ResponseEntity.ok(updatePatientCardAndPatient);
         }
         return ResponseEntity.notFound().build();
     }
+
     @GetMapping("/visitations/{id}")
     public ResponseEntity<Visitations> getVisitationsAndDoctorAndPatient(@RequestParam("mail") String mail, @RequestParam("password") String password, @PathVariable ObjectId id) {
         User loggedInUser = userRepository.findByMailAndPassword(mail, password);
         if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
-                Visitations visitations = visitationsRepository.findById(id).orElse(null);
-                if (visitations != null) {
-                    return ResponseEntity.ok(visitations);
+            Visitations visitations = visitationsRepository.findById(id).orElse(null);
+            if (visitations != null) {
+                return ResponseEntity.ok(visitations);
             }
         }
         return ResponseEntity.notFound().build();
     }
+
     @GetMapping("/calendars/{id}")
     public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getCalendarForPatient(@PathVariable("id") String id,
                                                                                       @RequestParam("mail") String mail, @RequestParam("password") String password) {
@@ -160,9 +146,6 @@ public class PatientCardController {
         }
         return ResponseEntity.notFound().build();
     }
-
-
-
 
 
 }

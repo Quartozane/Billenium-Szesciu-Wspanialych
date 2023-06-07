@@ -34,7 +34,10 @@ const LoginPage = () => {
         setUser(user);
         switch(user['userType']) {
           case "Lekarz":
-            navigate('/DoctorCard');
+            navigate('/DoctorPage');
+            break;
+          case "Pacjent":
+            navigate('/PatientPage');
             break;
           default:
             console.log('userType invalid');

@@ -7,6 +7,7 @@ function setUser(user) {
     } else 
         // throw new Error('User in sessionStorage in not null!');
         console.log('User in sessionStorage in not null!');
+        sessionStorage.setItem('user', JSON.stringify(user));
 }
 
 function getUser() {

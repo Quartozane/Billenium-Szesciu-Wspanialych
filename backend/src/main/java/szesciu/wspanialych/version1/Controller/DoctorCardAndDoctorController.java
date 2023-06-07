@@ -102,8 +102,8 @@ public class DoctorCardAndDoctorController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/patientcard/{patientId}")
-    public ResponseEntity<PatientCard> getPatientCard(@PathVariable ObjectId patientId, @RequestParam("mail") String mail, @RequestParam("password") String password) {
+    @GetMapping("/patientcard")
+    public ResponseEntity<PatientCard> getPatientCard(@RequestBody ObjectId patientId, @RequestParam("mail") String mail, @RequestParam("password") String password) {
 
         User loggedInUser = userRepository.findByMailAndPassword(mail, password);
         if (loggedInUser != null && loggedInUser.getUserType().equals("Lekarz")) {
