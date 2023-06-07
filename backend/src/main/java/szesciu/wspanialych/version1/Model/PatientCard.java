@@ -30,7 +30,8 @@ public class PatientCard {
     private String activePackage;
     private List<String> entry;
 
-    public PatientCard(ObjectId patientId, List<String> medications, String conditions, String allergies, String EWUSStatus, String OSOZCard, String NFZDepartment, String activePackage) {
+
+    public PatientCard(ObjectId patientId, List<String> medications, String conditions, String allergies, String EWUSStatus, String OSOZCard, String NFZDepartment, String activePackage,String Address,Long PhoneNumber,String Province) {
         this.patientId = patientId;
         this.medications = medications;
         this.conditions = conditions;
@@ -39,5 +40,6 @@ public class PatientCard {
         this.OSOZCard = OSOZCard;
         this.NFZDepartment = NFZDepartment;
         this.activePackage = activePackage;
+
     }
 }
