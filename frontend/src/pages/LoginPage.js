@@ -5,6 +5,7 @@ import "./LoginPage.css";
 import api from '../api/axiosConfig';
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../currentUserStorage";
+import { sendRequest } from "../sendRequest";
 
 
 const LoginPage = () => {
@@ -29,25 +30,43 @@ const LoginPage = () => {
       });
   
       if (response.status === 200) {
-        console.log(response);
         const user = response['data'];
-        setUser(user);
+        setUser(user); // save to session storage
+        
+        api({
+          url:'/getUserIdString', 
+          method: 'post',
+          params: {
+            mail: user['mail'],
+            password: user['password'],
+          }}).then(
+            (response) => {
+              sessionStorage.setItem('userId', response['data']);
+            }
+        ).catch(
+            (e) => {
+                alert(e);
+            }
+        )
+        
         switch(user['userType']) {
           case "Lekarz":
-            navigate('/DoctorPage');
+            // navigate('/DoctorPage');
             break;
           case "Pacjent":
             navigate('/PatientPage');
+            break;
+          case "Recepcjonista":
             break;
           default:
             console.log('userType invalid');
         }
         
       } else {
-        console.log('Błąd logowania, response status:', response.status);
+        alert('Błąd logowania, response status: '+ response.status);
       }
     } catch (error) {
-      console.log('Błąd logowania:', error);
+      alert('Błąd logowania: '+ error);
     }
   };
     return (

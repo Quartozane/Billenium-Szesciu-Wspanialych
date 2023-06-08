@@ -17,6 +17,7 @@ public interface UserRepository extends MongoRepository<User, ObjectId> {
 //    List<User> findByDateOfBirth(LocalDate dateOfBirth);
 //    List<User> findByPesel(Integer pesel);
     User findByMailAndPassword(String mail, String password);
+    User findByIdAndUserType(ObjectId _id, String userType);
     List<User> findAllByUserType(String userType);
 //    List<User> findAll();
 }

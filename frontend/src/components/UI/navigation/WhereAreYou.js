@@ -1,23 +1,23 @@
-import React from "react";
 import house from "../../../images/house.svg";
 import styles from "./WhereAreYou.module.css";
 import { Link } from "react-router-dom";
+import { React, Children } from "react";
 
 const WhereAreYou = (props) => {
+  const arr = Children.toArray(props.children);
   let subpages = [];
 
-  for (let index = 0; index < props.children.length; index++) {
-    subpages.push(props.children[index]);
-    if (index !== props.children.length - 1) {
-      subpages.push(" > ");
-    }
+  for (let index = 0; index < arr.length; index++) {
+    subpages.push(" > ");
+    subpages.push(arr[index]);
   }
+  
 
   return (
     <div className={styles["where-are-you"]}>
-      <img src={house} alt="house" />
-      {/* {subpages} */}
-      <Link to='/'>Strona główna</Link>
+      <Link to={props.mainPageLink}><img src={house} alt="house" /></Link>
+      <Link to={props.mainPageLink}>Strona główna</Link>
+      {subpages}
     </div>
   );
 };

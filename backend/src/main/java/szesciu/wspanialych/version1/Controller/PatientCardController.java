@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import szesciu.wspanialych.version1.Model.*;
 import szesciu.wspanialych.version1.Repository.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/patientCard")
@@ -95,19 +92,22 @@ public class PatientCardController {
     }
 
     @PutMapping("/updatecard")
-    public ResponseEntity<PatientCardAndPatient> updatePatientCard(@RequestParam ObjectId patientId, @RequestBody PatientCardAndPatient patientCardAndPatient) {
+    public ResponseEntity<String> updatePatientCard(@RequestParam ObjectId patientId, @RequestBody Map<String, Object> requestBody) {
         PatientCard updatePatientCard = patientCardRepository.findByPatientId(patientId);
-        User updateUser = userRepository.findById(patientId).orElse(null);
-        if(patientId != null) {
-            updatePatientCard.setNFZDepartment(patientCardAndPatient.getPatientCard().getNFZDepartment());
-            updateUser.setAddress(patientCardAndPatient.getUserPatient().getAddress());
-            updateUser.setPhoneNumber(patientCardAndPatient.getUserPatient().getPhoneNumber());
-            patientCardRepository.save(updatePatientCard);
-            userRepository.save(updateUser);
-            PatientCardAndPatient updatePatientCardAndPatient = new PatientCardAndPatient();
-            updatePatientCardAndPatient.setPatientCard(updatePatientCard);
-            updatePatientCardAndPatient.setUserPatient(updateUser);
-            return ResponseEntity.ok(updatePatientCardAndPatient);
+        User updateUser = userRepository.findByIdAndUserType(patientId, "Pacjent");
+        if (updatePatientCard != null && updateUser != null) {
+            if (requestBody.containsKey("userPatient")) {
+                Map<String, Object> userPatientData = (Map<String, Object>) requestBody.get("userPatient");
+                updateUser.setAddress((String) userPatientData.get("address"));
+                updateUser.setPhoneNumber((String) userPatientData.get("phoneNumber"));
+                userRepository.save(updateUser);
+            }
+            if (requestBody.containsKey("patientCard")) {
+                Map<String, Object> patientCardData = (Map<String, Object>) requestBody.get("patientCard");
+                updatePatientCard.setNFZDepartment((String) patientCardData.get("NFZDepartment"));
+                patientCardRepository.save(updatePatientCard);
+            }
+            return ResponseEntity.ok("Successfully updated!");
         }
         return ResponseEntity.notFound().build();
     }

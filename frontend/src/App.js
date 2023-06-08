@@ -6,8 +6,8 @@ import LoginPage from './pages/LoginPage';
 import Calendar from './components/Calendar';
 import DoctorPage from './pages/DoctorPage';
 import VisitCalendarPage from './pages/VisitCalendarPage';
-import DoctorCardPage from './pages/DoctorCardPage';
-import PatientListPage from './pages/PatientListPage';
+import DoctorDoctorCardPage from './pages/DoctorDoctorCardPage';
+import DoctorPatientListPage from './pages/DoctorPatientListPage';
 import PatientCardPage from './pages/PatientCardPage';
 import AddEntryPage from './pages/AddEntryPage';
 import VisitationPage from './pages/VisitationPage';
@@ -26,10 +26,10 @@ const router = createBrowserRouter([
       { index: true, element: <LoginPage /> },
       // { path:'/calendar', element: <Calendar appointedDates="['2023-05-10', '2023-05-04']" /> },
       { path:'/DoctorPage', element: <DoctorPage /> },
-      { path:'/VisitCalendar', element: <VisitCalendarPage /> },
-      { path:'/PatientList', element: <PatientListPage /> },
+      { path:'/DoctorPage/VisitCalendar', element: <VisitCalendarPage /> },
+      { path:'/DoctorPage/PatientList', element: <DoctorPatientListPage /> },
       { path:'/PatientCard', element: <PatientCardPage />},
-      { path:'/DoctorCard', element: <DoctorCardPage /> },
+      { path:'/DoctorPage/DoctorCard', element: <DoctorDoctorCardPage /> },
       { path:'/PatientCard/AddEntry', element: <AddEntryPage /> },
       { path:'/PatientCard/Visitation', element: <VisitationPage /> },
       { path:'/PatientPage', element: <PatientPage /> },

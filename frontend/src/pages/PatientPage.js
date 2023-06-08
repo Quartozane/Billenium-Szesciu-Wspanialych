@@ -6,23 +6,23 @@ import { useState, useEffect } from "react";
 
 const PatientPage = () => {
     useEffect(() => {
-        getUser();
+        getVisitation();
     }, [])
     
     const [visitation, setVisitation] = useState([]);
 
-    const getUser = () => {
+    const getVisitation = () => {
         api.get('/patientCard').then(
             (response) => {
                 setVisitation(response.data);
-                console.log(response);
             }
         ).catch(
             (e) => {
-                console.log(e);
+                alert(e);
             }
         )
     };
+    console.log(visitation);
 
     return (
         <Container>
@@ -34,6 +34,9 @@ const PatientPage = () => {
                         <tr key={visit.id}>
                             <td>
                                 {visit.doctor === null ? '': visit.doctor.name + ' ' + visit.doctor.surname }
+                            </td>
+                            <td>
+                                
                             </td>
                         </tr>
                     )
