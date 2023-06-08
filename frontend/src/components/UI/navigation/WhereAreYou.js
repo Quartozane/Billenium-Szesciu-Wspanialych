@@ -15,7 +15,7 @@ const WhereAreYou = (props) => {
 
   return (
     <div className={styles["where-are-you"]}>
-      <Link to={props.mainPageLink}><img src={house} alt="house" /></Link>
+      <Link to={props.mainPageLink}><img id="where-are-you-icon" src={house} alt="house" /></Link>
       <Link to={props.mainPageLink}>Strona główna</Link>
       {subpages}
     </div>

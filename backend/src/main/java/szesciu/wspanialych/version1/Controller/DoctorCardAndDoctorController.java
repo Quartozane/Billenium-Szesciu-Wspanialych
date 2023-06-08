@@ -155,6 +155,18 @@ public class DoctorCardAndDoctorController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/doctorVisit")
+    public ResponseEntity<Visitations> updateVisit(@RequestBody ObjectId id, @RequestBody Visitations visitations) {
+        Visitations updateVisitation = visitationsRepository.findById(id).orElse(null);
+        updateVisitation.setAppointmentPurpose(visitations.getAppointmentPurpose());
+        updateVisitation.setSymptoms(visitations.getSymptoms());
+        updateVisitation.setMedicalTests(visitations.getMedicalTests());
+        updateVisitation.setPrescribedMedications(visitations.getPrescribedMedications());
+        updateVisitation.setDiagnosis(visitations.getDiagnosis());
+        updateVisitation.setMedicationDosage(visitations.getMedicationDosage());
+        visitationsRepository.save(updateVisitation);
+        return ResponseEntity.ok(updateVisitation);
+    }
 
 }
 

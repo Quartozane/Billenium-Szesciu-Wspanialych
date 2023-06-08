@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import szesciu.wspanialych.version1.Model.*;
 import szesciu.wspanialych.version1.Repository.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import java.util.*;
 
@@ -28,8 +30,9 @@ public class PatientCardController {
 //        return ResponseEntity.ok(patientCards);
 //    }
     @GetMapping
-    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getVisitationsAndDoctorAndPatient() {
-        List<Visitations> visitations = visitationsRepository.findAll();
+    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getVisitationsAndDoctorAndPatient(@RequestParam String id) {
+        ObjectId patientId = new ObjectId(id);
+        List<Visitations> visitations = visitationsRepository.findAllByPatientId(patientId);
         List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientsList = new ArrayList<>();
 
         for (Visitations visitation : visitations) {
@@ -52,29 +55,29 @@ public class PatientCardController {
     }
 
     @GetMapping("/doctors")
-    public ResponseEntity<List<Object>> getAllDoctors() {
-        List<User> users = userRepository.findAll();
-        List<DoctorCard> cards = doctorCardRepository.findAll();
-        List<Object> result = new LinkedList<>();
-        for (User user : users) {
-            if (user.getUserType().equals("Lekarz")) {
-                result.add(user);
-            }
+    public ResponseEntity<List<DoctorCardAndDoctor>> getDoctorCardAndDoctor() {
+        List<User> doctors = userRepository.findAllByUserType("Lekarz");
+        List<DoctorCardAndDoctor> doctorCardAndDoctors = new ArrayList<>();
+        for(User user : doctors) {
+            DoctorCard doctorCard = doctorCardRepository.findByDoctorId(user.getId());
+            DoctorCardAndDoctor doctorCardAndDoctor = new DoctorCardAndDoctor();
+            doctorCardAndDoctor.setUserDoctor(user);
+            doctorCardAndDoctor.setDoctorCard(doctorCard);
+            doctorCardAndDoctors.add(doctorCardAndDoctor);
         }
-        result.add(cards);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(doctorCardAndDoctors);
     }
 
-    @GetMapping("/patientcalendar")
-    public ResponseEntity<List<Visitations>> getPatientCalendar(@RequestParam("mail") String mail, @RequestParam("password") String password) {
-        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
-        if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
-            ObjectId patientId = loggedInUser.getId();
-            List<Visitations> patientvisit = visitationsRepository.findAllByPatientId(patientId);
-            return ResponseEntity.ok(patientvisit);
-        }
-        return ResponseEntity.notFound().build();
-    }
+//    @GetMapping("/patientcalendar")
+//    public ResponseEntity<List<Visitations>> getPatientCalendar(@RequestParam("mail") String mail, @RequestParam("password") String password) {
+//        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
+//        if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
+//            ObjectId patientId = loggedInUser.getId();
+//            List<Visitations> patientvisit = visitationsRepository.findAllByPatientId(patientId);
+//            return ResponseEntity.ok(patientvisit);
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
 
     @GetMapping("/patientcard")
     public ResponseEntity<PatientCard> getPatientCard(@RequestParam("mail") String mail, @RequestParam("password") String password) {
@@ -113,41 +116,49 @@ public class PatientCardController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/visitations/{id}")
-    public ResponseEntity<Visitations> getVisitationsAndDoctorAndPatient(@RequestParam("mail") String mail, @RequestParam("password") String password, @PathVariable ObjectId id) {
-        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
-        if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
-            Visitations visitations = visitationsRepository.findById(id).orElse(null);
-            if (visitations != null) {
-                return ResponseEntity.ok(visitations);
+//    @GetMapping("/visitations/{id}")
+//    public ResponseEntity<Visitations> getVisitationsAndDoctorAndPatient(@RequestParam("mail") String mail, @RequestParam("password") String password, @PathVariable ObjectId id) {
+//        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
+//        if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent")) {
+//            Visitations visitations = visitationsRepository.findById(id).orElse(null);
+//            if (visitations != null) {
+//                return ResponseEntity.ok(visitations);
+//            }
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
+
+    @GetMapping("/calendars")
+    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getCalendarForPatient(@RequestParam String id) {
+        ObjectId patientId = new ObjectId(id);
+        List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
+        List<Visitations> visitations = visitationsRepository.findAllByPatientId(patientId);
+        for (Visitations visitation : visitations) {
+            User doctor = userRepository.findById(visitation.getDoctorId()).orElse(null);
+            User patient = userRepository.findById(visitation.getPatientId()).orElse(null);
+            if (doctor != null && patient != null) {
+                VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
+                visitationsAndDoctorAndPatient.setVisitation(visitation);
+                visitationsAndDoctorAndPatient.setDoctor(doctor);
+                visitationsAndDoctorAndPatient.setPatient(patient);
+                visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
             }
         }
-        return ResponseEntity.notFound().build();
-    }
-
-    @GetMapping("/calendars/{id}")
-    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getCalendarForPatient(@PathVariable("id") String id,
-                                                                                      @RequestParam("mail") String mail, @RequestParam("password") String password) {
-        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
-        if (loggedInUser != null && loggedInUser.getUserType().equals("Pacjent") && loggedInUser.getId().equals(id)) {
-            List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
-            List<Visitations> visitations = visitationsRepository.findAllByPatientId(new ObjectId(id));
-            for (Visitations visitation : visitations) {
-                User doctor = userRepository.findById(visitation.getDoctorId()).orElse(null);
-                User patient = userRepository.findById(visitation.getPatientId()).orElse(null);
-                if (doctor != null && patient != null) {
-                    VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
-                    visitationsAndDoctorAndPatient.setVisitation(visitation);
-                    visitationsAndDoctorAndPatient.setDoctor(doctor);
-                    visitationsAndDoctorAndPatient.setPatient(patient);
-                    visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
-                }
-            }
             return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
-        }
-        return ResponseEntity.notFound().build();
     }
 
-
+    @PostMapping("/patientVisit")
+    public ResponseEntity<Visitations> createVisit(@RequestParam String idPatient, @RequestBody Map<String, Object> requestBody) {
+        ObjectId patientId = new ObjectId(idPatient);
+        ObjectId doctorId = new ObjectId((String) requestBody.get("idDoctor"));
+        Visitations visitations = new Visitations();
+        visitations.setDoctorId(doctorId);
+        visitations.setPatientId(patientId);
+        visitations.setAppointmentBookingDate(LocalDate.now());
+        visitations.setAppointmentDate((LocalDateTime) requestBody.get("appointmentDate"));
+        visitations.setAppointmentStatus("Oczekujaca");
+        visitationsRepository.save(visitations);
+        return ResponseEntity.ok(visitations);
+    }
 }
 

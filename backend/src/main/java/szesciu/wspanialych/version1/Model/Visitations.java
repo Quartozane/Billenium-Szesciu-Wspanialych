@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Document(collection = "Visitations")
@@ -23,7 +24,7 @@ public class Visitations {
     private ObjectId doctorId;
     private ObjectId patientId;
     private LocalDate appointmentBookingDate;
-    private LocalDate appointmentDate;
+    private LocalDateTime appointmentDate;
     private String appointmentDescription;
     private String appointmentStatus;
     private String appointmentPurpose;
@@ -33,7 +34,8 @@ public class Visitations {
     private List<String> diagnosis;
     private String medicationDosage;
 
-    public Visitations(ObjectId doctorId, ObjectId patientId, LocalDate appointmentBookingDate, LocalDate appointmentDate, String appointmentDescription, String appointmentStatus, String appointmentPurpose, List<String> symptoms, List<String> medicalTests, List<String> prescribedMedications, List<String> diagnosis, String medicationDosage) {
+
+    public Visitations(ObjectId doctorId, ObjectId patientId, LocalDate appointmentBookingDate, LocalDateTime appointmentDate, String appointmentDescription, String appointmentStatus, String appointmentPurpose, List<String> symptoms, List<String> medicalTests, List<String> prescribedMedications, List<String> diagnosis, String medicationDosage) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.appointmentBookingDate = appointmentBookingDate;

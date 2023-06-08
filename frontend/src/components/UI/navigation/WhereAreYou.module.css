@@ -5,11 +5,15 @@
   max-width: fit-content;
   margin-top: 0.8vw;
   margin-bottom: 0.8vw;
-  font-size: 1.5rem;
-  font-weight: 500;
+  /* font-size: 1.5rem; */
+  /* font-weight: 500; */
 }
 
 .where-are-you a {
-  text-decoration: none;
+  text-decoration: underline;
   color: black;
+}
+
+.where-are-you img {
+  width: 2em;
 }

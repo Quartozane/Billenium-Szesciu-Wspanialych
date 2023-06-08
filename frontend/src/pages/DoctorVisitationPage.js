@@ -3,7 +3,7 @@ import { sendRequest } from "../sendRequest";
 import { Container } from "react-bootstrap";
 
 
-const VisitationPage = () => {
+const DoctorVisitationPage = () => {
     
     const patientId = '';
     const visitationId = '';
@@ -18,4 +18,4 @@ const VisitationPage = () => {
     );
 };
 
-export default VisitationPage;
+export default DoctorVisitationPage;

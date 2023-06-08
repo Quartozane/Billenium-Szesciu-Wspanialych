@@ -1,21 +1,19 @@
-import api from './api/axiosConfig';
-import { useState, useEffect } from 'react';
 import Layout from './pages/Layout';
 import { createBrowserRouter, BrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import Calendar from './components/Calendar';
 import DoctorPage from './pages/DoctorPage';
 import VisitCalendarPage from './pages/VisitCalendarPage';
 import DoctorDoctorCardPage from './pages/DoctorDoctorCardPage';
 import DoctorPatientListPage from './pages/DoctorPatientListPage';
-import PatientCardPage from './pages/PatientCardPage';
+import DoctorPatientCardPage from './pages/DoctorPatientCardPage';
 import AddEntryPage from './pages/AddEntryPage';
-import VisitationPage from './pages/VisitationPage';
+import DoctorVisitationPage from './pages/DoctorVisitationPage';
 import PatientPage from './pages/PatientPage';
 import DoctorListPage from './pages/DoctorListPage';
 import PatientVisitCalendarPage from './pages/PatientVisitCalendarPage';
 import PatientPatientCardPage from './pages/PatientPatientCardPage';
 import PatientUpdateCardPage from './pages/PatientUpdateCardPage';
+import PatientRegisterVisitPage from './pages/PatientRegisterVisitPage';
 
 
 const router = createBrowserRouter([
@@ -28,15 +26,16 @@ const router = createBrowserRouter([
       { path:'/DoctorPage', element: <DoctorPage /> },
       { path:'/DoctorPage/VisitCalendar', element: <VisitCalendarPage /> },
       { path:'/DoctorPage/PatientList', element: <DoctorPatientListPage /> },
-      { path:'/PatientCard', element: <PatientCardPage />},
+      { path:'/DcotorPage/PatientCard', element: <DoctorPatientCardPage />},
       { path:'/DoctorPage/DoctorCard', element: <DoctorDoctorCardPage /> },
       { path:'/PatientCard/AddEntry', element: <AddEntryPage /> },
-      { path:'/PatientCard/Visitation', element: <VisitationPage /> },
+      { path:'/PatientCard/Visitation', element: <DoctorVisitationPage /> },
       { path:'/PatientPage', element: <PatientPage /> },
       { path:'/PatientPage/DoctorList', element: <DoctorListPage /> },
       { path:'/PatientPage/VisitCalendar', element: <PatientVisitCalendarPage /> },
       { path:'/PatientPage/PatientCard', element: <PatientPatientCardPage /> },
       { path:'/PatientPage/PatientCard/Update', element: <PatientUpdateCardPage /> },
+      { path:'/PatientPage/RegisterVisit', element: <PatientRegisterVisitPage /> },
     ],
   },
 ]);

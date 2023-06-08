@@ -3,7 +3,7 @@ import { sendRequest } from "../sendRequest";
 import { Container } from "react-bootstrap";
 
 
-const PatientCardPage = () => {
+const DoctorPatientCardPage = () => {
 
     const getPatientCard = sendRequest('get', '/doctorCardAndDoctor/patientcard/6473f5088f4eff205749041c');
 
@@ -16,4 +16,4 @@ const PatientCardPage = () => {
     );
 }
 
-export default PatientCardPage;
+export default DoctorPatientCardPage;
