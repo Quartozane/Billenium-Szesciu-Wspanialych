@@ -92,7 +92,8 @@ public class PatientCardController {
     }
 
     @PutMapping("/updatecard")
-    public ResponseEntity<String> updatePatientCard(@RequestParam ObjectId patientId, @RequestBody Map<String, Object> requestBody) {
+    public ResponseEntity<String> updatePatientCard(@RequestParam String id, @RequestBody Map<String, Object> requestBody) {
+        ObjectId patientId = new ObjectId(id);
         PatientCard updatePatientCard = patientCardRepository.findByPatientId(patientId);
         User updateUser = userRepository.findByIdAndUserType(patientId, "Pacjent");
         if (updatePatientCard != null && updateUser != null) {

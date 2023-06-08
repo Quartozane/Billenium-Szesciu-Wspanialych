@@ -3,10 +3,7 @@ package szesciu.wspanialych.version1.Controller;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import szesciu.wspanialych.version1.Model.User;
 import szesciu.wspanialych.version1.Model.Visitations;
 import szesciu.wspanialych.version1.Model.VisitationsAndDoctorAndPatient;
@@ -30,8 +27,9 @@ public class VisitationsAndDoctorAndPatientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getVisitationsAndDoctorAndPatient() {
-        List<Visitations> visitations = visitationsRepository.findAll();
+    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getVisitationsAndDoctorAndPatient(@RequestParam String id) {
+        ObjectId doctorId = new ObjectId(id);
+        List<Visitations> visitations = visitationsRepository.findByDoctorId(doctorId);
         List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientsList = new ArrayList<>();
 
         for(Visitations visitation : visitations) {

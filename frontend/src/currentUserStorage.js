@@ -1,4 +1,4 @@
-export { setUser, getUser, clearUser };
+export { setUser, getUser, clearUser, setUserId, getUserId };
 
 
 function setUser(user) {
@@ -28,17 +28,17 @@ function clearUser() {
 
 function setUserId(userId) {
     if(sessionStorage.getItem('userId') === null) {
-        sessionStorage.setItem('userId', JSON.stringify(user));
+        sessionStorage.setItem('userId', userId);
     } else {
         // throw new Error('UserId in sessionStorage in not null!');
         console.log('User in sessionStorage in not null!');
-        sessionStorage.setItem('userId', JSON.stringify(user));
+        sessionStorage.setItem('userId', userId);
     }
 }
 
 function getUserId() {
     if(sessionStorage.getItem('userId') !== null) {
-        return JSON.parse(sessionStorage.getItem('userId'));
+        return sessionStorage.getItem('userId');
     } else
     // throw new Error('UserId in sessionStorage is null!');
         return null;

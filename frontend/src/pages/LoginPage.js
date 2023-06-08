@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./LoginPage.css";
 import api from '../api/axiosConfig';
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../currentUserStorage";
+import { setUser, setUserId } from "../currentUserStorage";
 import { sendRequest } from "../sendRequest";
 
 
@@ -41,7 +41,7 @@ const LoginPage = () => {
             password: user['password'],
           }}).then(
             (response) => {
-              sessionStorage.setItem('userId', response['data']);
+              setUserId(response['data']);
             }
         ).catch(
             (e) => {
@@ -51,12 +51,13 @@ const LoginPage = () => {
         
         switch(user['userType']) {
           case "Lekarz":
-            // navigate('/DoctorPage');
+            navigate('/DoctorPage');
             break;
           case "Pacjent":
             navigate('/PatientPage');
             break;
           case "Recepcjonista":
+            navigate('/');
             break;
           default:
             console.log('userType invalid');

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import WhereAreYou from "../components/UI/navigation/WhereAreYou";
 import { React, useState, useEffect } from "react";
 import api from '../api/axiosConfig';
-import { getUser } from "../currentUserStorage";
+import { getUserId } from "../currentUserStorage";
 
 
 const DoctorPage = () => {
@@ -18,7 +18,13 @@ const DoctorPage = () => {
     const [visitation, setVisitation] = useState([]);
 
     const getVisitation = () => {
-        api.get('/doctorCardAndDoctor').then(
+        api({
+            url:'/visADocAPat',
+            method: 'get',
+            params: {
+                id: getUserId(),
+            }
+        }).then(
             (response) => {
                 setVisitation(response.data);
                 console.log(response);
@@ -34,7 +40,7 @@ const DoctorPage = () => {
     return (
         <Container>
             <Row>
-                <WhereAreYou mainPageLink='/DoctorPage'>    
+                <WhereAreYou mainPageLink='/DoctorPage'>
                 </WhereAreYou>
             </Row>
             <Row>
@@ -42,10 +48,16 @@ const DoctorPage = () => {
                     <tbody>
                     {
                         visitation.map(
-                            visit => 
-                            <tr key={visit.id}>
+                            entry => 
+                            <tr key={entry.visitation.id}>
                                 <td>
-                                    
+                                    {entry.patient.name+' '+entry.patient.surname}
+                                </td>
+                                <td>
+                                    {entry.visitation.appointmentDate}
+                                </td>
+                                <td>
+                                    {entry.visitation.appointmentDate}
                                 </td>
                             </tr>
                         )
