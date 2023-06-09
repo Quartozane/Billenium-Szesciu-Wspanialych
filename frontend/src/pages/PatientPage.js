@@ -30,7 +30,8 @@ const PatientPage = () => {
             }
         ).catch(
             (e) => {
-                alert(e);
+                // alert(e);
+                console.log(e);
             }
         )
     };
@@ -69,7 +70,7 @@ const PatientPage = () => {
                                 <Accordion.Header>
                                     <table className="w-100">
                                         <td className="w-50">
-                                            {entry.doctor.name+' '+entry.doctor.surname+' - '}
+                                            {entry.doctor === null? '' : 'Dr. '+entry.doctor.name+' '+entry.doctor.surname+' - '+entry.doctorCard.specialization}
                                         </td>
                                         <td>
                                             {entry.visitation.appointmentDate.substring(0,10)+', '+entry.visitation.appointmentDate.substring(11,16)}

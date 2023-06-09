@@ -58,7 +58,7 @@ const PatientVisitCalendarPage = () => {
     return (
         <Container>
             <Row>
-                <WhereAreYou mainPageLink='/DoctorPage'>
+                <WhereAreYou mainPageLink='/PatientPage'>
                 </WhereAreYou>
             </Row>
             <Row>
@@ -113,6 +113,22 @@ const PatientVisitCalendarPage = () => {
                                                 </td>
                                                 <td>
                                                     {entry.visitation.appointmentStatus}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Cel wizyty:
+                                                </td>
+                                                <td>
+                                                    {entry.visitation.appointmentPurpose}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Objawy:
+                                                </td>
+                                                <td>
+                                                    {entry.visitation.symptoms}
                                                 </td>
                                             </tr>
                                         </tbody>

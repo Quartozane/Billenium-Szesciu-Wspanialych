@@ -11,6 +11,8 @@ const PatientRegisterVisitPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
+    const [meds, setMeds] = useState('');
+    const [symptoms, setSymptoms] = useState('');
 
     useEffect(() => {
         fetchDoctors();
@@ -31,6 +33,10 @@ const PatientRegisterVisitPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(selectedDoctor == null || selectedDoctor == '') {
+            alert("Należy wybrać lekarza");
+            return;
+        }
         // useEffect(() => {
         //     getNewVisit();
         // }, []);
@@ -43,10 +49,12 @@ const PatientRegisterVisitPage = () => {
                     idPatient: getUserId(),
                     idDoctor: selectedDoctor.valueOf(),
                     appointmentDate: selectedDate,
+                    prescribedMedications: meds,
+                    symptoms: symptoms,
                 },
             }).then(
                 (response) => {
-                    alert('Zarejestrowano na wizytę!');
+                    alert(response.data);
                     console.log(response.data);
                 }
             ).catch(
@@ -67,7 +75,8 @@ const PatientRegisterVisitPage = () => {
                 <Form method="post" id="register-visit-form" name="register-visit-form" onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Lekarz</Form.Label>
-                            <Form.Select name="doctor" onChange={(e)=> setSelectedDoctor(e.target.value)} autoFocus>
+                            <Form.Select name="doctor" onChange={(e)=> setSelectedDoctor(e.target.value)} value={selectedDoctor} autoFocus>
+                                <option value=''>Wybierz lekarza...</option>
                                 {
                                     doctors.map(
                                         entry => 
@@ -78,8 +87,16 @@ const PatientRegisterVisitPage = () => {
                         </Form.Group>
                     <FormGroup>
                         <Form.Label>Data wizyty</Form.Label>
-                        <Form.Control type="datetime-local" name="password" onChange={(e)=> setSelectedDate(e.target.value)} value={selectedDate}/>
+                        <Form.Control type="datetime-local" min={new Date()} step='1800' onChange={(e)=> setSelectedDate(e.target.value)} value={selectedDate}/>
                         </FormGroup>
+                    <FormGroup>
+                        <Form.Label>Objawy</Form.Label>
+                        <Form.Control type="text" onChange={(e)=> setSymptoms(e.target.value)} value={symptoms} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Form.Label>Aktualnie stosowane leki</Form.Label>
+                        <Form.Control type="text" onChange={(e)=> setMeds(e.target.value)} value={meds} />
+                    </FormGroup>
                     <br />
                     <Button variant="primary" type="submit">Zarejestruj się</Button>
                 </Form>

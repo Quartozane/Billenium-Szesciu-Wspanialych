@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import szesciu.wspanialych.version1.Model.*;
 import szesciu.wspanialych.version1.Repository.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -30,23 +31,24 @@ public class PatientCardController {
 //        return ResponseEntity.ok(patientCards);
 //    }
     @GetMapping
-    public ResponseEntity<List<VisitationsAndDoctorAndPatient>> getVisitationsAndDoctorAndPatient(@RequestParam String id) {
+    public ResponseEntity<List<VisitationsAndDoctorAndPatientAndDoctorCard>> getVisitationsAndDoctorAndPatient(@RequestParam String id) {
         ObjectId patientId = new ObjectId(id);
         List<Visitations> visitations = visitationsRepository.findAllByPatientId(patientId);
-        List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientsList = new ArrayList<>();
+        List<VisitationsAndDoctorAndPatientAndDoctorCard> visitationsAndDoctorAndPatientsList = new ArrayList<>();
 
         for (Visitations visitation : visitations) {
             User doctor = userRepository.findById(visitation.getDoctorId()).orElse(null);
             User patient = userRepository.findById(visitation.getPatientId()).orElse(null);
 
-            VisitationsAndDoctorAndPatient visitationsAndDoctorAndPatient = new VisitationsAndDoctorAndPatient();
+            VisitationsAndDoctorAndPatientAndDoctorCard visitationsAndDoctorAndPatientAndDoctorCard = new VisitationsAndDoctorAndPatientAndDoctorCard();
 
-            visitationsAndDoctorAndPatient.setVisitation(visitation);
-            visitationsAndDoctorAndPatient.setDoctor(doctor);
-            visitationsAndDoctorAndPatient.setPatient(patient);
-            visitationsAndDoctorAndPatient.setVisitationId(visitation.getId().toString());
+            visitationsAndDoctorAndPatientAndDoctorCard.setVisitation(visitation);
+            visitationsAndDoctorAndPatientAndDoctorCard.setDoctor(doctor);
+            visitationsAndDoctorAndPatientAndDoctorCard.setPatient(patient);
+            visitationsAndDoctorAndPatientAndDoctorCard.setVisitationId(visitation.getId().toString());
+            visitationsAndDoctorAndPatientAndDoctorCard.setDoctorCard(doctorCardRepository.findByDoctorId(visitationsAndDoctorAndPatientAndDoctorCard.getDoctor().getId()));
 
-            visitationsAndDoctorAndPatientsList.add(visitationsAndDoctorAndPatient);
+            visitationsAndDoctorAndPatientsList.add(visitationsAndDoctorAndPatientAndDoctorCard);
         }
 
         int limit = Math.min(5, visitationsAndDoctorAndPatientsList.size());
@@ -60,7 +62,7 @@ public class PatientCardController {
     public ResponseEntity<List<DoctorCardAndDoctor>> getDoctorCardAndDoctor() {
         List<User> doctors = userRepository.findAllByUserType("Lekarz");
         List<DoctorCardAndDoctor> doctorCardAndDoctors = new ArrayList<>();
-        for(User user : doctors) {
+        for (User user : doctors) {
             DoctorCard doctorCard = doctorCardRepository.findByDoctorId(user.getId());
             DoctorCardAndDoctor doctorCardAndDoctor = new DoctorCardAndDoctor();
             doctorCardAndDoctor.setUserDoctor(user);
@@ -148,22 +150,28 @@ public class PatientCardController {
                 visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
             }
         }
-            return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
+        return ResponseEntity.ok(visitationsAndDoctorAndPatientList);
     }
 
     @PostMapping("/patientVisit")
-    public ResponseEntity<Visitations> createVisit(@RequestParam String idPatient, @RequestParam String idDoctor, @RequestParam String appointmentDate) {
+    public ResponseEntity<String> createVisit(@RequestParam String idPatient, @RequestParam String idDoctor, @RequestParam String appointmentDate) {
         ObjectId patientId = new ObjectId(idPatient);
         ObjectId doctorId = new ObjectId(idDoctor);
         LocalDateTime date = LocalDateTime.parse(appointmentDate);
+        boolean isPatientAlreadyBooked = visitationsRepository.existsByPatientIdAndAppointmentDate(patientId, date);
+        if (isPatientAlreadyBooked) {
+            return ResponseEntity.badRequest().body("Pacjent ma już zaplanowaną wizytę na tę datę i godzinę.");
+        }
         Visitations visitations = new Visitations();
         visitations.setDoctorId(doctorId);
         visitations.setPatientId(patientId);
         visitations.setAppointmentBookingDate(LocalDate.now());
         visitations.setAppointmentDate(date);
+        visitations.setPrescribedMedications(prescribedMedications);
+        visitations.setSymptoms(symptoms);
         visitations.setAppointmentStatus("Oczekujaca");
         visitationsRepository.save(visitations);
-        return ResponseEntity.ok(visitations);
+        return ResponseEntity.ok("Wizyta została poprawnie dodana.");
     }
 
 //    @PostMapping("/patientVisit")
