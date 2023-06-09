@@ -11,6 +11,7 @@ const PatientRegisterVisitPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
+
     useEffect(() => {
         fetchDoctors();
     }, []);
@@ -20,6 +21,7 @@ const PatientRegisterVisitPage = () => {
                 url:'/patientCard/doctors',
                 method: 'get',
             });
+            console.log(response.data);
             setDoctors(response.data);
         } catch (e) {
             alert(e);
@@ -32,24 +34,19 @@ const PatientRegisterVisitPage = () => {
         // useEffect(() => {
         //     getNewVisit();
         // }, []);
+        console.log(selectedDate);
 
         const getNewVisit = await api({
                 url:'/patientCard/patientVisit',
                 method: 'post',
                 params: {
                     idPatient: getUserId(),
-                },
-                body: {
                     idDoctor: selectedDoctor.valueOf(),
-                    visitation: {
-                        appointmentDate: selectedDate,
-                    }
-                        
+                    appointmentDate: selectedDate,
                 },
             }).then(
                 (response) => {
-                    alert(ok);
-                    setVisitation(response.data);
+                    alert('Zarejestrowano na wizytę!');
                     console.log(response.data);
                 }
             ).catch(
@@ -74,7 +71,7 @@ const PatientRegisterVisitPage = () => {
                                 {
                                     doctors.map(
                                         entry => 
-                                            <option key={entry.doctorCard.id.timestamp+entry.doctorCard.id.date} value={JSON.stringify(entry.userDoctor.id)}>{entry.userDoctor.name} {entry.userDoctor.surname} - {entry.doctorCard.specialization}</option>
+                                            <option key={entry.doctorCard.id.timestamp+entry.doctorCard.id.date} value={entry.doctorId}>{entry.userDoctor.name} {entry.userDoctor.surname} - {entry.doctorCard.specialization}</option>
                                     )
                                 }
                             </Form.Select>

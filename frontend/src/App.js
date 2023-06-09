@@ -2,7 +2,7 @@ import Layout from './pages/Layout';
 import { createBrowserRouter, BrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DoctorPage from './pages/DoctorPage';
-import VisitCalendarPage from './pages/VisitCalendarPage';
+import DoctorVisitCalendarPage from './pages/DoctorVisitCalendarPage';
 import DoctorDoctorCardPage from './pages/DoctorDoctorCardPage';
 import DoctorPatientListPage from './pages/DoctorPatientListPage';
 import DoctorPatientCardPage from './pages/DoctorPatientCardPage';
@@ -24,12 +24,12 @@ const router = createBrowserRouter([
       { index: true, element: <LoginPage /> },
       // { path:'/calendar', element: <Calendar appointedDates="['2023-05-10', '2023-05-04']" /> },
       { path:'/DoctorPage', element: <DoctorPage /> },
-      { path:'/DoctorPage/VisitCalendar', element: <VisitCalendarPage /> },
+      { path:'/DoctorPage/VisitCalendar', element: <DoctorVisitCalendarPage /> },
       { path:'/DoctorPage/PatientList', element: <DoctorPatientListPage /> },
       { path:'/DcotorPage/PatientCard', element: <DoctorPatientCardPage />},
       { path:'/DoctorPage/DoctorCard', element: <DoctorDoctorCardPage /> },
       { path:'/PatientCard/AddEntry', element: <AddEntryPage /> },
-      { path:'/PatientCard/Visitation', element: <DoctorVisitationPage /> },
+      { path:'/DoctorCard/Visitation', element: <DoctorVisitationPage /> },
       { path:'/PatientPage', element: <PatientPage /> },
       { path:'/PatientPage/DoctorList', element: <DoctorListPage /> },
       { path:'/PatientPage/VisitCalendar', element: <PatientVisitCalendarPage /> },

@@ -1,0 +1,414 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+.accept {
+    position: absolute;
+    width: 362px;
+    height: 51px;
+    left: 667px;
+    top: 790px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    text-align: center;
+    background: #0A2FB6;
+    border-radius: 8px;
+
+    color: #FFFFFF;
+}
+.cancel {
+    position: absolute;
+    width: 278px;
+    height: 51px;
+    left: 1126px;
+    top: 790px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    text-align: center;
+    text-decoration-line: underline;
+
+    background: #FFFFFF;
+    border: 5px solid #0A2FB6;
+    border-radius: 8px;
+
+    color: #000000;
+}
+.data {
+    position: absolute;
+    width: 231px;
+    height: 42px;
+    left: 50px;
+    top: 119px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 42px;
+
+    color: #000000;
+}
+.info {
+    position: absolute;
+    width: 350px;
+    height: 42px;
+    left: 981px;
+    top: 119px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 42px;
+
+    color: #000000;
+}
+.more-info {
+    position: absolute;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #0A2FB6;
+}
+#names {
+    width: 224px;
+    height: 28px;
+    left: 49px;
+    top: 177px;
+}
+#personal {
+    width: 166px;
+    height: 28px;
+    left: 58px;
+    top: 566px;
+}
+#contact {
+    width: 259px;
+    height: 28px;
+    left: 58px;
+    top: 768px;
+}
+#allergies {
+    width: 106px;
+    height: 28px;
+    left: 981px;
+    top: 171px;
+}
+#notes {
+    width: 67px;
+    height: 28px;
+    left: 981px;
+    top: 244px;
+}
+#diseases {
+    width: 214px;
+    height: 28px;
+    left: 981px;
+    top: 359px;
+}
+#med {
+    width: 46px;
+    height: 28px;
+    left: 983px;
+    top: 573px;
+}
+.t {
+    position: absolute;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+
+    color: #000000;
+}
+#t1 {
+    height: 23px;
+    left: 365px;
+    top: 231px;
+}
+#t2 {
+    height: 23px;
+    left: 365px;
+    top: 270px;
+}
+#t3 {
+    height: 23px;
+    left: 365px;
+    top: 309px;
+}
+#t4 {
+    height: 23px;
+    left: 365px;
+    top: 347px;
+
+}
+#t5 {
+    height: 23px;
+    left: 365px;
+    top: 390px;
+}
+.i {
+    position: absolute;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+
+    color: rgba(0, 0, 0, 0.5);
+}
+#i1 {
+    height: 23px;
+    left: 614px;
+    top: 231px;
+}
+#i2 {
+    height: 23px;
+    left: 614px;
+    top: 270px;
+}
+#i3 {
+    height: 23px;
+    left: 614px;
+    top: 309px;
+}
+#i4 {
+    height: 23px;
+    left: 614px;
+    top: 231px;
+}
+#i5 {
+    height: 23px;
+    left: 614px;
+    top: 390px;
+
+    color: #0EB20B;
+}
+hr {
+    position: absolute;
+
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+#h1 {
+    width: 522px;
+    height: 0px;
+    left: 365px;
+    top: 252px;
+}
+#h2 {
+    width: 522px;
+    height: 0px;
+    left: 365px;
+    top: 291px;
+}
+#h3 {
+    width: 522px;
+    height: 0px;
+    left: 365px;
+    top: 329px;
+}
+#h4 {
+    width: 522px;
+    height: 0px;
+    left: 365px;
+    top: 367px;
+}
+#h5 {
+    width: 522px;
+    height: 0px;
+    left: 365px;
+    top: 410px;
+}
+#h6 {
+    width: 585.01px;
+    height: 0px;
+    left: 64px;
+    top: 647.56px;
+}
+#h7 {
+    width: 585.01px;
+    height: 0px;
+    left: 64px;
+    top: 695px;
+}
+#h8 {
+    width: 585.01px;
+    height: 0px;
+    left: 63px;
+    top: 743px;
+}
+#h9 {
+    width: 585.01px;
+    height: 0px;
+    left: 64px;
+    top: 846px;
+}
+#h10 {
+    width: 585.01px;
+    height: 0px;
+    left: 64px;
+    top: 900px;
+}
+#h11 {
+    position: absolute;
+    width: 410px;
+    height: 0px;
+    left: 982px;
+    top: 387px;
+}
+#h12 {
+    width: 410px;
+    height: 0px;
+    left: 981px;
+    top: 425px;
+}
+#h13 {
+    width: 410px;
+    height: 0px;
+    left: 981px;
+    top: 603px;
+}
+#h14 {
+    width: 410px;
+    height: 0px;
+    left: 982px;
+    top: 648px;
+}
+
+#profilowe {
+    position: absolute;
+    width: 281px;
+    height: 329px;
+    left: 48px;
+    top: 222px;
+}
+.medic {
+    position: absolute;
+    width: 230px;
+    height: 42px;
+    left: 983px;
+    top: 502px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 42px;
+
+    color: #000000;
+}
+#i6 {
+    width: 287px;
+    height: 23px;
+    left: 281px;
+    top: 611px;
+}
+#i7 {
+    width: 118px;
+    height: 23px;
+    left: 281px;
+    top: 661px;
+}
+#i8 {
+    width: 124px;
+    height: 23px;
+    left: 281px;
+    top: 709px;
+}
+#i9 {
+    width: 104px;
+    height: 23px;
+    left: 281px;
+    top: 813px;
+}
+#i10 {
+    width: 324px;
+    height: 23px;
+    left: 281px;
+    top: 863px;
+}
+#i11 {
+    width: 192px;
+    height: 23px;
+    left: 981px;
+    top: 209px;
+}
+#i12 {
+    width: 232px;
+    height: 46px;
+    left: 981px;
+    top: 284px;
+}
+#i13 {
+    width: 232px;
+    height: 46px;
+    left: 981px;
+    top: 304px;
+}
+#i14 {
+    width: 194px;
+    height: 23px;
+    left: 982px;
+    top: 413px;
+}
+#i15 {
+    width: 108px;
+    height: 23px;
+    left: 1235px;
+    top: 629px;
+}
+#i16 {
+    width: 108px;
+    height: 23px;
+    left: 1235px;
+    top: 671px;
+}
+#t6 {
+    width: 53px;
+    height: 23px;
+    left: 64px;
+    top: 626px;
+}
+#t7 {
+    height: 23px;
+    left: 64px;
+    top: 671px;
+}
+#t8 {
+    height: 23px;
+    left: 64px;
+    top: 719px;
+}
+#t9 {
+    height: 23px;
+    left: 63px;
+    top: 823px;
+}
+#t10 {
+    height: 23px;
+    left: 63px;
+    top: 873px;
+}
+#t11 {
+    height: 23px;
+    left: 983px;
+    top: 629px;
+}
+#t12 {
+    width: 81px;
+    height: 23px;
+    left: 981px;
+    top: 670px;
+}

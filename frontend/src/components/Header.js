@@ -3,9 +3,9 @@ import logo from "../images/logo.png";
 import Sidebar from "./Sidebar";
 import SidebarItem from "./SidebarItem";
 import { Navbar, NavbarBrand, Container, Image } from "react-bootstrap";
+import { getUser } from "../currentUserStorage";
 
 const Header = () => {
-
 
     return (
         <Navbar bg="primary">
@@ -16,7 +16,11 @@ const Header = () => {
                 </NavbarBrand>
                 <Sidebar>
                     {
-
+                        () => {
+                            if(getUser === null) {
+                                
+                            }
+                        }
                     }
                     <SidebarItem> Opcja 1 </SidebarItem>
                 </Sidebar>

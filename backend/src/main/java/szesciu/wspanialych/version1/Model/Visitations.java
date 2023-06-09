@@ -28,14 +28,14 @@ public class Visitations {
     private String appointmentDescription;
     private String appointmentStatus;
     private String appointmentPurpose;
-    private List<String> symptoms;
-    private List<String> medicalTests;
-    private List<String> prescribedMedications;
-    private List<String> diagnosis;
+    private String symptoms;
+    private String medicalTests;
+    private String prescribedMedications;
+    private String diagnosis;
     private String medicationDosage;
 
 
-    public Visitations(ObjectId doctorId, ObjectId patientId, LocalDate appointmentBookingDate, LocalDateTime appointmentDate, String appointmentDescription, String appointmentStatus, String appointmentPurpose, List<String> symptoms, List<String> medicalTests, List<String> prescribedMedications, List<String> diagnosis, String medicationDosage) {
+    public Visitations(ObjectId doctorId, ObjectId patientId, LocalDate appointmentBookingDate, LocalDateTime appointmentDate, String appointmentDescription, String appointmentStatus, String appointmentPurpose, String symptoms, String medicalTests, String prescribedMedications, String diagnosis, String medicationDosage) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.appointmentBookingDate = appointmentBookingDate;

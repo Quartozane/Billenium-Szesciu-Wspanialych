@@ -10,6 +10,8 @@ import szesciu.wspanialych.version1.Repository.PatientCardRepository;
 import szesciu.wspanialych.version1.Repository.UserRepository;
 import szesciu.wspanialych.version1.Repository.VisitationsRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +58,7 @@ public class DoctorCardAndDoctorController {
         User loggedInUser = userRepository.findByMailAndPassword(mail, password);
         if (loggedInUser != null && loggedInUser.getUserType().equals("Lekarz")) {
             List<VisitationsAndDoctorAndPatient> visitationsAndDoctorAndPatientList = new ArrayList<>();
-            List<Visitations> visitations = visitationsRepository.findAll();
+            List<Visitations> visitations = visitationsRepository.findByDoctorId(loggedInUser.getId());
             for (Visitations visitation : visitations) {
                 User doctor = userRepository.findById(visitation.getDoctorId()).orElse(null);
                 User patient = userRepository.findById(visitation.getPatientId()).orElse(null);
@@ -65,6 +67,7 @@ public class DoctorCardAndDoctorController {
                     visitationsAndDoctorAndPatient.setVisitation(visitation);
                     visitationsAndDoctorAndPatient.setDoctor(doctor);
                     visitationsAndDoctorAndPatient.setPatient(patient);
+                    visitationsAndDoctorAndPatient.setVisitationId(visitation.getId().toString());
                     visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
                 }
             }
@@ -144,19 +147,18 @@ public class DoctorCardAndDoctorController {
     }
 
     @GetMapping("/visitations/{id}")
-    public ResponseEntity<Visitations> getVisitationsAndDoctorAndPatient(@RequestParam("mail") String mail, @RequestParam("password") String password, @PathVariable ObjectId id) {
-        User loggedInUser = userRepository.findByMailAndPassword(mail, password);
-        if (loggedInUser != null) {
+    public ResponseEntity<Visitations> getVisitationsAndDoctorAndPatient(@PathVariable ObjectId id) {
+
             Visitations visitations = visitationsRepository.findById(id).orElse(null);
             if (visitations != null) {
                 return ResponseEntity.ok(visitations);
             }
-        }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/doctorVisit")
-    public ResponseEntity<Visitations> updateVisit(@RequestBody ObjectId id, @RequestBody Visitations visitations) {
+    public ResponseEntity<Visitations> updateVisit(@RequestParam String visitId, @RequestBody Visitations visitations) {
+        ObjectId id = new ObjectId(visitId);
         Visitations updateVisitation = visitationsRepository.findById(id).orElse(null);
         updateVisitation.setAppointmentPurpose(visitations.getAppointmentPurpose());
         updateVisitation.setSymptoms(visitations.getSymptoms());
@@ -164,9 +166,25 @@ public class DoctorCardAndDoctorController {
         updateVisitation.setPrescribedMedications(visitations.getPrescribedMedications());
         updateVisitation.setDiagnosis(visitations.getDiagnosis());
         updateVisitation.setMedicationDosage(visitations.getMedicationDosage());
+        updateVisitation.setAppointmentStatus("Zakonczona");
+
+        updateVisitation.setAppointmentDescription(visitations.getAppointmentDescription());
         visitationsRepository.save(updateVisitation);
         return ResponseEntity.ok(updateVisitation);
     }
-
+    @PostMapping("/patientVisit")
+    public ResponseEntity<Visitations> createVisit(@RequestParam String idPatient, @RequestParam String idDoctor, @RequestParam String appointmentDate) {
+        ObjectId patientId = new ObjectId(idPatient);
+        ObjectId doctorId = new ObjectId(idDoctor);
+        LocalDateTime date = LocalDateTime.parse(appointmentDate);
+        Visitations visitations = new Visitations();
+        visitations.setDoctorId(doctorId);
+        visitations.setPatientId(patientId);
+        visitations.setAppointmentBookingDate(LocalDate.now());
+        visitations.setAppointmentDate(date);
+        visitations.setAppointmentStatus("Oczekujaca");
+        visitationsRepository.save(visitations);
+        return ResponseEntity.ok(visitations);
+    }
 }
 

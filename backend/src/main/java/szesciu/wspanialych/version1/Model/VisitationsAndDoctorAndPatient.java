@@ -14,4 +14,5 @@ public class VisitationsAndDoctorAndPatient {
     private Visitations visitation;
     private User doctor;
     private User patient;
+    private String visitationId;
 }

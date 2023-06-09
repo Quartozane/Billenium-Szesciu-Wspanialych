@@ -1,5 +1,6 @@
 package szesciu.wspanialych.version1.Controller;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,13 @@ public class VisitationsController {
     public ResponseEntity<Visitations> createVisitations(@RequestBody Visitations visitations) {
         Visitations newVisitations = visitationsRepository.save(visitations);
         return ResponseEntity.ok(newVisitations);
+    }
+
+    @DeleteMapping("/patientVisitDelete")
+    public ResponseEntity<String> deleteVisit(@RequestParam String visitationId) {
+        ObjectId visitId = new ObjectId(visitationId);
+        Visitations visitation = visitationsRepository.findById(visitId).orElse(null);
+        visitationsRepository.delete(visitation);
+        return ResponseEntity.ok("Usunieto");
     }
 }

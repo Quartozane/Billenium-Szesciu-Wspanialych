@@ -1,8 +1,8 @@
 import React from "react";
 import { sendRequest } from "../sendRequest";
 import { Container } from "react-bootstrap";
-import p1 from '../images/p1.png';
-import './PatientPatientCardPage.css';
+import p1 from "../images/p1.png";
+import "./PatientUpdateCardPage.css";
 
 
 const PatientPatientCardPage = () => {
@@ -13,7 +13,7 @@ const PatientPatientCardPage = () => {
         <Container>
             <p className="data">Dane pacjenta</p>
             <p className="more-info" id="names">Karolina Wiśniewska</p>
-            <img id='profilowe' src={p1}/>
+            <img src={p1}/>
             <p className="t" id="t1">Nr kartoreki</p>
             <p className="i" id="i1">375024</p>
             <hr id="h1"/>

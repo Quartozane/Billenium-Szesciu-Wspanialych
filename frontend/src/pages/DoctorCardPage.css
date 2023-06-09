@@ -1,0 +1,214 @@
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+* {
+    margin-left:0;
+    padding: 0;
+}
+html,
+body {
+    height: 100%;
+}
+.container {
+    height: 100%;
+    margin: 0 5%;
+    margin-left:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.doctor-card {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    margin-left: 0;
+}
+
+
+WhereAreYou{
+    margin:0;
+}
+
+.doctor-card-title {
+    position: absolute;
+    width: 319px;
+    height: 35px;
+    left: 48px;
+    top: 146px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    color: #0A2FB6;
+}
+
+.doctor-card-image {
+    position: absolute;
+    width: 263px;
+    height: 436px;
+    left: 82px;
+    top: 181px;
+    background: url(image.png);
+    background-size: cover;
+}
+
+
+.doctor-name {
+    position: absolute;
+    width: 222px;
+    height: 38px;
+    left: 425px;
+    top: 251px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    color: #000000;
+}
+
+.price {
+    position: absolute;
+    width: 163px;
+    height: 23px;
+    left: 425px;
+    top: 301px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 23px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.line {
+    position: absolute;
+    width: 692px;
+    height: 0px;
+    left: 425px;
+    top: 384px;
+   
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.calendar-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 425px;
+    top: 396px;
+    background: url(image1.png);
+    background-size: cover;
+}
+
+.line1 {
+    position: absolute;
+    width: 692px;
+    height: 0px;
+    left: 425px;
+    top: 450px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.schedule {
+    position: absolute;
+    width: 185px;
+    height: 23px;
+    left: 485px;
+    top: 402px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    font-size:17px;
+    margin-top:auto;
+    margin-bottom:auto;
+}
+
+.education-title {
+    position: absolute;
+    width: 158px;
+    height: 28px;
+    left: 425px;
+    top: 470px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #0A2FB6;
+}
+
+.education-description {
+    position: absolute;
+    width: 557px;
+    height: 23px;
+    left: 425px;
+    top: 510px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.specializations-title {
+    position: absolute;
+    width: 143px;
+    height: 28px;
+    left: 425px;
+    top: 553px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #0A2FB6;
+}
+
+.specializations-description {
+    position: absolute;
+    width: 675px;
+    height: 46px;
+    left: 425px;
+    top: 601px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.experience-title {
+    position: absolute;
+    width: 163px;
+    height: 28px;
+    left: 425px;
+    top: 659px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #0A2FB6;
+}
+
+.experience-description {
+    position: absolute;
+    width: 844px;
+    height: 161px;
+    left: 425px;
+    top: 699px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 23px;
+    color: #000000;
+}

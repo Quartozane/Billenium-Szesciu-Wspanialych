@@ -44,6 +44,7 @@ public class PatientCardController {
             visitationsAndDoctorAndPatient.setVisitation(visitation);
             visitationsAndDoctorAndPatient.setDoctor(doctor);
             visitationsAndDoctorAndPatient.setPatient(patient);
+            visitationsAndDoctorAndPatient.setVisitationId(visitation.getId().toString());
 
             visitationsAndDoctorAndPatientsList.add(visitationsAndDoctorAndPatient);
         }
@@ -54,6 +55,7 @@ public class PatientCardController {
         return ResponseEntity.ok(visitationsAndDoctorAndPatientsList);
     }
 
+
     @GetMapping("/doctors")
     public ResponseEntity<List<DoctorCardAndDoctor>> getDoctorCardAndDoctor() {
         List<User> doctors = userRepository.findAllByUserType("Lekarz");
@@ -63,6 +65,7 @@ public class PatientCardController {
             DoctorCardAndDoctor doctorCardAndDoctor = new DoctorCardAndDoctor();
             doctorCardAndDoctor.setUserDoctor(user);
             doctorCardAndDoctor.setDoctorCard(doctorCard);
+            doctorCardAndDoctor.setDoctorId(user.getId().toString());
             doctorCardAndDoctors.add(doctorCardAndDoctor);
         }
         return ResponseEntity.ok(doctorCardAndDoctors);
@@ -141,6 +144,7 @@ public class PatientCardController {
                 visitationsAndDoctorAndPatient.setVisitation(visitation);
                 visitationsAndDoctorAndPatient.setDoctor(doctor);
                 visitationsAndDoctorAndPatient.setPatient(patient);
+                visitationsAndDoctorAndPatient.setVisitationId(visitation.getId().toString());
                 visitationsAndDoctorAndPatientList.add(visitationsAndDoctorAndPatient);
             }
         }
@@ -148,17 +152,32 @@ public class PatientCardController {
     }
 
     @PostMapping("/patientVisit")
-    public ResponseEntity<Visitations> createVisit(@RequestParam String idPatient, @RequestBody Map<String, Object> requestBody) {
+    public ResponseEntity<Visitations> createVisit(@RequestParam String idPatient, @RequestParam String idDoctor, @RequestParam String appointmentDate) {
         ObjectId patientId = new ObjectId(idPatient);
-        ObjectId doctorId = new ObjectId((String) requestBody.get("idDoctor"));
+        ObjectId doctorId = new ObjectId(idDoctor);
+        LocalDateTime date = LocalDateTime.parse(appointmentDate);
         Visitations visitations = new Visitations();
         visitations.setDoctorId(doctorId);
         visitations.setPatientId(patientId);
         visitations.setAppointmentBookingDate(LocalDate.now());
-        visitations.setAppointmentDate((LocalDateTime) requestBody.get("appointmentDate"));
+        visitations.setAppointmentDate(date);
         visitations.setAppointmentStatus("Oczekujaca");
         visitationsRepository.save(visitations);
         return ResponseEntity.ok(visitations);
     }
+
+//    @PostMapping("/patientVisit")
+//    public ResponseEntity<Visitations> createVisit(@RequestParam String idPatient, @RequestParam String idDoctor, @RequestBody VisitationsAndDoctorId visitationsAndDoctorId) {
+//        ObjectId patientId = new ObjectId(idPatient);
+//        Visitations addVisitation = new Visitations();
+//        addVisitation.setDoctorId(visitationsAndDoctorId.getDoctorId());
+//        addVisitation.setPatientId(patientId);
+//        addVisitation.setAppointmentBookingDate(LocalDate.now());
+//        addVisitation.setAppointmentDate(visitationsAndDoctorId.getVisitation().getAppointmentDate());
+//        addVisitation.setAppointmentStatus("Oczekujaca");
+//        visitationsRepository.save(addVisitation);
+//        return ResponseEntity.ok(addVisitation);
+//    }
+
 }
 

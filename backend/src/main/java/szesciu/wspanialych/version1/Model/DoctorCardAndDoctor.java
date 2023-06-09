@@ -13,4 +13,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DoctorCardAndDoctor {
     private User userDoctor;
     private DoctorCard doctorCard;
+    private String doctorId;
 }
